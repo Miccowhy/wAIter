@@ -9,12 +9,9 @@ class Restaurant:
     def __generate_grid(self):
         gw = self.grid_width
         gl = self.grid_length
-        grid = np.array([ [
-                            Tile() if self.__should_tile_be_empty(i, j, gl)
-                                   else Tile(Table())
-                            for i in range(gw)
-                          ]
-                          for j in range(gl)
+        grid = np.array([
+                            [ Tile() if self.__should_tile_be_empty(i, j, gl) else Tile(Table()) for i in range(gw) ]
+                            for j in range(gl)
                         ],
                         dtype = object)
         grid[0][int(len(grid[0]) / 2)].is_kitchen_entrance = True
@@ -34,15 +31,3 @@ class Table:
     def __init__(self, customers = [], is_dirty = False):
         self.customers = customers
         self.is_dirty = is_dirty
-
-    @property
-    def is_dirty(self):
-        return self.__is_dirty
-
-    @is_dirty.setter
-    def is_dirty(self, is_dirty):
-        if not self.__is_boolean(is_dirty):
-            raise ValueError('is_dirty must be a boolean!')
-
-    def __is_boolean(self, x):
-        return type(x) == bool
