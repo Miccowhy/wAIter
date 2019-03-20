@@ -9,5 +9,3 @@ Project is developed by:
 Artificial Intelligence, summer semester 2018/2019
 
 Faculty of Mathematics and Computer Science, Adam Mickiewicz University
-
-test
