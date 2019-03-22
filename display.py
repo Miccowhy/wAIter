@@ -1,6 +1,6 @@
 import environment as env
 
-width  = int(input('Enter width of the grid: '))
+width = int(input('Enter width of the grid: '))
 length = int(input('Enter length of the grid: '))
 
 r = env.Restaurant(length, width)
@@ -13,11 +13,11 @@ for x in range(0, rows):
         tile = grid[x, y]
         table = tile.table
         if table is not None:
-            print('t ', end = '')
+            print('t ', end='')
         if tile.is_kitchen_entrance:
-            print('x ', end = '')
+            print('x ', end='')
         if table is None and not tile.is_kitchen_entrance:
-            print('. ', end = '')
+            print('. ', end='')
     print()
 
 print('\nx - kitchen entrance')
