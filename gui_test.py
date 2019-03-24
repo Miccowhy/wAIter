@@ -1,13 +1,3 @@
-"""
- Example program to show using an array to back a grid on-screen.
- 
- Sample Python/Pygame Programs
- Simpson College Computer Science
- http://programarcadegames.com/
- http://simpson.edu/computer-science/
- 
- Explanation video: http://youtu.be/mdTeqiWyFnc
-"""
 import pygame
 from random import randint
 import threading
