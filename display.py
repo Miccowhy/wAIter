@@ -15,10 +15,9 @@ for x in range(0, rows):
         tile = grid[x, y]
         if tile.is_kitchen_entrance:
             print('x ', end='')
-        if tile is not None:
+        if tile.occupation is not None:
             print('t ', end='')
-         
-        if tile is None and not tile.is_kitchen_entrance:
+        if tile.occupation is None and not tile.is_kitchen_entrance:
             print('. ', end='')
 
         """
