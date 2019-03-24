@@ -15,8 +15,8 @@ class Restaurant:
         gl = self.grid_length
         grid = np.array([
                             [
-                                Tile(i, j) if self._should_tile_be_empty(i, j, gl)
-                                else Tile(i, j, Table())
+                                Tile(j, i) if self._should_tile_be_empty(i, j, gl)
+                                else Tile(j, i, Table())
                                 for i in range(gw)
                             ]
                             for j in range(gl)
