@@ -1,6 +1,6 @@
 import numpy as np
-from tile import Tile
-from table import Table
+from .table import Table
+from .tile import Tile
 from helpers.np_array_helper import sliding_window
 
 
