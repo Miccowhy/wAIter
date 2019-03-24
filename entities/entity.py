@@ -1,7 +1,6 @@
 class Entity:
-    def __init__(self, current_tile, environment):
+    def __init__(self, current_tile):
         self.current_tile = current_tile
-        self.environment = environment
 
     def move(self, destination_tile):
         self.current_tile.occupation = None

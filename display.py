@@ -20,7 +20,7 @@ length = int(input('Enter length of the grid: '))
 
 r = Restaurant(length, width)
 grid = r.grid
-agent = WaiterAgent(grid[0][0], r)
+agent = WaiterAgent(grid[0][0])
 rows = grid.shape[0]
 cols = grid.shape[1]
 
