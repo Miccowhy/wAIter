@@ -25,4 +25,4 @@ class Restaurant:
         return grid
 
     def _should_tile_be_empty(self, i, j, gl):
-        return (i % 2 == 0) or (j == 0) or (j == gl - 1)
+        return (i % 2 == 0) or (j % 2 == 0)
