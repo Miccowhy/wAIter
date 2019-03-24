@@ -1,17 +1,8 @@
 import pygame
 from entities.waiter_agent import WaiterAgent
 from environment.table import Table
-
-
-BLACK = (0, 0, 0)
-BROWN = (222, 184, 135)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-YELLOW = (255, 255, 0)
-
-TILE_WIDTH = 45
-TILE_HEIGHT = 45
-TILE_MARGIN = 5
+from constants.colors import BROWN, GREEN, YELLOW, WHITE
+from constants.dimensions import TILE_WIDTH, TILE_HEIGHT, TILE_MARGIN
 
 
 def draw_grid(environment, screen):
