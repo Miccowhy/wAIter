@@ -1,3 +1,5 @@
+import pygame
+
 class TileGrid(object):
     def __init__(self, width=None, height=None, color=None, loadedimage=None):
         self.width = width
@@ -8,7 +10,7 @@ class TileGrid(object):
             self.image.fill(self.color)
         self.loadedimage = loadedimage
         if self.loadedimage != None:
-            self.image = pygame.image.load(str(loadedimage))
+            self.image = loadedimage
 
             # Scale image to tilesize
             self.image = pygame.transform.scale(self.image,(self.width,self.height))

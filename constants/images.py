@@ -1,6 +1,7 @@
 # Loaded tiles
 import pygame
 import os
+
 # Using relative paths
 current_path = os.path.dirname(__file__)
 tiles_path = os.path.join(current_path, 'tiles')
