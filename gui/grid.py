@@ -24,10 +24,18 @@ def draw_grid(environment, screen):
                 color = WHITE
                 tile = TileGrid(width=24, height=24, color=WHITE, loadedimage=FLOOR)
             # comment below in future, but dont delete
+            """
             pygame.draw.rect(screen,
                              color,
                              [(TILE_MARGIN + TILE_WIDTH) * column + TILE_MARGIN,
                               (TILE_MARGIN + TILE_HEIGHT) * row + TILE_MARGIN,
                               TILE_WIDTH,
                               TILE_HEIGHT])
-            #pygame.screen.blit() goes here instead of pygame.draw.rect()
+            """
+            #screen.blit() goes here instead of pygame.draw.rect()
+            screen.blit(tile, [(TILE_MARGIN + TILE_WIDTH) * column + TILE_MARGIN,
+                              (TILE_MARGIN + TILE_HEIGHT) * row + TILE_MARGIN,
+                              TILE_WIDTH,
+                              TILE_HEIGHT])
+            #displays none for now, dont have any idea, Szymon might know <3
+            
