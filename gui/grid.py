@@ -33,7 +33,7 @@ def draw_grid(environment, screen):
                               TILE_HEIGHT])
             """
             #screen.blit() goes here instead of pygame.draw.rect()
-            screen.blit(tile, [(TILE_MARGIN + TILE_WIDTH) * column + TILE_MARGIN,
+            screen.blit(tile.image, [(TILE_MARGIN + TILE_WIDTH) * column + TILE_MARGIN,
                               (TILE_MARGIN + TILE_HEIGHT) * row + TILE_MARGIN,
                               TILE_WIDTH,
                               TILE_HEIGHT])
