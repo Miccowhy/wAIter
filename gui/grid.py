@@ -13,16 +13,16 @@ def draw_grid(environment, screen):
 
             if type(tile.occupation) is Table:
                 color = BROWN
-                tile = TileGrid(width=24, height=24, color=BROWN, loadedimage=TABLE)
+                tile = TileGrid(width=45, height=45, color=BROWN, loadedimage=TABLE)
             elif type(tile.occupation) is WaiterAgent:
                 color = GREEN
-                tile = TileGrid(width=24, height=24, color=GREEN, loadedimage=WAITER)
+                tile = TileGrid(width=45, height=45, color=GREEN, loadedimage=WAITER)
             elif tile.is_kitchen_entrance:
                 color = YELLOW
-                tile = TileGrid(width=24, height=24, color=YELLOW, loadedimage=ENTRANCE)
+                tile = TileGrid(width=45, height=45, color=YELLOW, loadedimage=ENTRANCE)
             else:
                 color = WHITE
-                tile = TileGrid(width=24, height=24, color=WHITE, loadedimage=FLOOR)
+                tile = TileGrid(width=45, height=45, color=WHITE, loadedimage=FLOOR)
             # comment below in future, but dont delete
             """
             pygame.draw.rect(screen,
