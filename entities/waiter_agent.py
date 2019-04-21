@@ -1,11 +1,12 @@
 import random
 import numpy as np
 from .entity import Entity
+from constants.images import WAITER
 
 
 class WaiterAgent(Entity):
     def __init__(self, current_tile):
-        super(WaiterAgent, self).__init__(current_tile)
+        super().__init__(current_tile=current_tile, loaded_image=WAITER)
 
     # Currently, agent chooses his route randomly, based on possible moves list
     def choose_route(self):
