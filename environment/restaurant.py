@@ -16,18 +16,25 @@ class Restaurant:
         gl = self.grid_length
         grid = np.array([
                             [
-                                Tile(self, j, i) if self._should_tile_be_empty(i, j, gl)
-                                else Tile(self, j, i, Table())
-                                for i in range(gw)
+                                Tile(self, row, col, is_kitchen_entrance=True)
+                                if self._should_tile_be_kitchen_entrance(row, col)
+                                else
+                                Tile(self, row, col)
+                                if self._should_tile_be_empty(row, col)
+                                else
+                                Tile(self, row, col, Table())
+                                for col in range(gw)
                             ]
-                            for j in range(gl)
+                            for row in range(gl)
                         ],
                         dtype=object)
-        grid[0][int(gl / 2)].is_kitchen_entrance = True
         return grid
 
-    def _should_tile_be_empty(self, i, j, gl):
-        return (i % 2 == 0) or (j % 2 == 0)
+    def _should_tile_be_empty(self, row, col):
+        return (row % 2 == 0) or (col % 2 == 0)
+
+    def _should_tile_be_kitchen_entrance(self, row, col):
+        return row == 0 and col == int(self.grid_width / 2)
 
     def _assign_cords(self):
         x = np.arange(0, TILE_WIDTH * self.grid_width, TILE_WIDTH)

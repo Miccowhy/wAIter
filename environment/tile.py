@@ -2,12 +2,14 @@ import numpy as np
 from helpers.np_array_helper import sliding_window
 from gui.drawable import Drawable
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
-from constants.images import FLOOR
+from constants.images import FLOOR, ENTRANCE
 
 
 class Tile(Drawable):
     def __init__(self, environment, row_index, col_index, occupation=None,
                  is_kitchen_entrance=False, color=None, loaded_image=FLOOR):
+        if is_kitchen_entrance:
+            loaded_image = ENTRANCE
         super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, color=color,
                          loaded_image=loaded_image)
         self.environment = environment
