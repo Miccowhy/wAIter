@@ -1,5 +1,5 @@
 import pygame
-from gui.grid import draw_grid
+from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
 from constants.colors import BLACK
@@ -16,6 +16,7 @@ clock = pygame.time.Clock()
 
 env = Restaurant(GRID_WIDTH, GRID_LENGTH)
 agent = WaiterAgent(env.grid[0][0])
+map_renderer = MapRenderer(env, screen)
 
 done = False
 
@@ -25,7 +26,7 @@ while not done:
             done = True
 
     screen.fill(BLACK)
-    draw_grid(env, screen)
+    map_renderer.render()
     # Limit frames per second
     clock.tick(5)
     # Go ahead and update the screen with what we've drawn.
