@@ -11,3 +11,4 @@ class Entity(Drawable):
         self.current_tile.occupation = None
         destination_tile.occupation = self
         self.current_tile = destination_tile
+        self.rect = self.image.get_rect(topleft=self.current_tile.rect.topleft)
