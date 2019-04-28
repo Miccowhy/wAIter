@@ -1,12 +1,15 @@
-# Loaded tiles
 import pygame
 import os
+import sys
 
 # Using relative paths
-current_path = os.path.dirname(__file__)
-tiles_path = os.path.join(current_path, 'tiles')
+root_path = os.path.dirname(sys.modules['__main__'].__file__)
+graphics_path = os.path.join(root_path, 'resources/graphics')
 
-WAITER = pygame.image.load(os.path.join(tiles_path, 'waiter.bmp'))
-TABLE = pygame.image.load(os.path.join(tiles_path, 'table.bmp'))
-ENTRANCE = pygame.image.load(os.path.join(tiles_path, 'entrance.bmp'))
-FLOOR = pygame.image.load(os.path.join(tiles_path, 'floor.bmp'))
+TABLE = pygame.image.load(os.path.join(graphics_path, 'table.png'))
+ENTRANCE = pygame.image.load(os.path.join(graphics_path, 'entrance.png'))
+FLOOR = pygame.image.load(os.path.join(graphics_path, 'floor.png'))
+
+
+def WAITER_SPRITESHEET():
+    return pygame.image.load(os.path.join(graphics_path, 'waiter_spritesheet.png')).convert()

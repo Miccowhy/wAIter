@@ -18,6 +18,12 @@ Faculty of Mathematics and Computer Science, Adam Mickiewicz University
 2. Install dependencies. In the root directory:
 
     `pip3 install -r requirements.txt`
-3. Run `run.py`
+3. Run `walter.py`
 
-    `python3 run.py`
+    `python3 walter.py`
+#
+## Credits
+Following assets were used in the project:
+* [Various Walkcycle](https://opengameart.org/content/various-walkcycle-8-characters) by **Skab**
+* [RPG Indoor Tileset Expansion1](https://opengameart.org/content/rpg-indoor-tileset-expansion-1) by **Redshrike** and **Jetrel**
+* [Indoor Tileset](https://opengameart.org/content/indoor-tileset) by **2DPIXX**
