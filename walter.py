@@ -1,5 +1,5 @@
 import pygame
-from gui.map_renderer import MapRenderer
+from gui.map_renderer import MapRenderr
 from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
 from constants.colors import BLACK
@@ -26,6 +26,11 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            column_clicked = math.trunc(pos[0] / 50)
+            row_clicked = math.trunc(pos[1] / 50)
+            print("Click ", pos, "Grid coordinates", row_clicked, column_clicked)
 
     screen.fill(BLACK)
     map_renderer.render()
