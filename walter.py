@@ -1,5 +1,5 @@
 import pygame
-from gui.map_renderer import MapRenderr
+from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
 from constants.colors import BLACK
