@@ -10,7 +10,6 @@ pygame.init()
 
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("WalterAI")
-
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
@@ -34,7 +33,6 @@ while not done:
     clock.tick(30)
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
-
     agent.follow_path()
 
 pygame.quit()
