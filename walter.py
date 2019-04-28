@@ -1,4 +1,5 @@
 import pygame
+import math
 from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
