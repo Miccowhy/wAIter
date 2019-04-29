@@ -1,10 +1,12 @@
 import pygame
 import math
 from gui.map_renderer import MapRenderer
+from helpers.findpath import find_path
 from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
 from constants.colors import BLACK
 from constants.dimensions import WINDOW_SIZE, GRID_WIDTH, GRID_LENGTH
+from constants.movement import Direction
 
 
 pygame.init()
@@ -20,7 +22,6 @@ map_renderer = MapRenderer(env, screen, agent)
 env.grid[0][0].occupation = agent
 test_path = [env.grid[0][1], env.grid[0][2], env.grid[0][3], env.grid[0][4], env.grid[1][4],
              env.grid[2][4], env.grid[1][4], env.grid[0][4], env.grid[0][3]]
-agent.path = test_path
 
 done = False
 while not done:
@@ -31,7 +32,7 @@ while not done:
             pos = pygame.mouse.get_pos()
             column_clicked = math.trunc(pos[0] / 50)
             row_clicked = math.trunc(pos[1] / 50)
-            print("Click ", pos, "Grid coordinates", row_clicked, column_clicked)
+            agent.path = find_path(agent, env.grid, row_clicked, column_clicked)
 
     screen.fill(BLACK)
     map_renderer.render()
