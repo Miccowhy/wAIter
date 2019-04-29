@@ -50,7 +50,7 @@ def astar(maze, start, end):
             return path[::-1]
 
         children = []
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (1, 1)]: # Adjacent squares
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: # Adjacent squares
 
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
             if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0:
@@ -83,7 +83,6 @@ def test():
 
     values = cycle([0, 1])
     test_grid = [[next(values) for i in range(9)] for j in range(9)]
-    """
     grid = [[0, 1, 0, 1, 0, 1, 0, 1, 0],
             [1, 0, 1, 0, 1, 0, 1, 0, 1],
             [0, 1, 0, 1, 0, 1, 0, 1, 0],
@@ -93,7 +92,7 @@ def test():
             [0, 1, 0, 1, 0, 1, 0, 1, 0],
             [1, 0, 1, 0, 1, 0, 1, 0, 1],
             [0, 1, 0, 1, 0, 1, 0, 1, 0]]
-    """
+
     print("Test Grid:",test_grid)
     start = (0, 0)
     end = (1, 7)
