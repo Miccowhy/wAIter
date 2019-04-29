@@ -24,7 +24,7 @@ class Restaurant:
                                 Tile(self, row, col)
                                 if self._should_tile_be_empty(row, col)
                                 else
-                                Tile(self, row, col, Table())
+                                Tile(self, row, col, Table(), cost=100)
                                 for col in range(gw)
                             ]
                             for row in range(gl)
@@ -49,7 +49,8 @@ class Restaurant:
                     tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[col], y[row]))
 
     def _randomize_costs(self):
-        without_occupation = list(filter(lambda x: x.occupation is None, self.grid.flatten()))
+        without_occupation = list(filter(lambda x: x.occupation is None and x.row_index != 0 and x.col_index != 0,
+                                  self.grid.flatten()))
         random_tiles = random.choices(without_occupation, k=24)
         for tile in random_tiles:
             tile.cost = 1

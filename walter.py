@@ -6,7 +6,6 @@ from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
 from constants.colors import BLACK
 from constants.dimensions import WINDOW_SIZE, GRID_WIDTH, GRID_LENGTH
-from constants.movement import Direction
 
 
 pygame.init()

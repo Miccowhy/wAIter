@@ -1,4 +1,3 @@
-from constants.movement import Direction
 from constants.dimensions import GRID_LENGTH, GRID_WIDTH
 # a star alghortihm implementation
 
@@ -22,17 +21,21 @@ def find_path(agent, grid, row_clicked, column_clicked):
     costs = [[grid[row][col].cost for col in range(GRID_LENGTH)] for row in range(GRID_WIDTH)]
     path_grid_coords = astar(costs, (agent.current_tile.row_index, agent.current_tile.col_index),
                                     (row_clicked, column_clicked))
+    print(path_grid_coords)
+    path = []
+    for cords in path_grid_coords:
+        path.append(grid[cords[0]][cords[1]])
+
     print(grid.flatten())
-    path_with_occupations = [tile for tile in grid.flatten() for cords in path_grid_coords
-                                    if tile.row_index == cords[0] and tile.col_index == cords[1]]
-    path = list(filter(lambda x: x.occupation is None, path_with_occupations))
+    #path = [tile for tile in grid.flatten() for cords in path_grid_coords
+    #        if tile.row_index == cords[0] and tile.col_index == cords[1]]
     print(costs)
     print(path_grid_coords)
     print(path)
     for element in path:
         print(element.row_index, element.col_index)
-    if agent.direction == Direction.LEFT or agent.direction == Direction.UP:
-        path.reverse()
+    #if agent.direction == Direction.LEFT or agent.direction == Direction.UP:
+    #   path.reverse()
     return path
 
 
