@@ -1,4 +1,5 @@
 import numpy as np
+import random
 from .table import Table
 from .tile import Tile
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
@@ -10,6 +11,7 @@ class Restaurant:
         self.grid_width = grid_width
         self.grid = self._generate_grid()
         self._assign_cords()
+        self._randomize_costs()
 
     def _generate_grid(self):
         gw = self.grid_width
@@ -45,3 +47,9 @@ class Restaurant:
                 tile.rect = tile.image.get_rect(topleft=(x[col], y[row]))
                 if tile.occupation is not None:
                     tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[col], y[row]))
+
+    def _randomize_costs(self):
+        without_occupation = list(filter(lambda x: x.occupation is None, self.grid.flatten()))
+        random_tiles = random.choices(without_occupation, k=24)
+        for tile in random_tiles:
+            tile.cost = 1
