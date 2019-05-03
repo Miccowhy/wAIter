@@ -4,7 +4,7 @@ from gui.map_renderer import MapRenderer
 from helpers.findpath import find_path
 from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
-from constants.colors import BLACK
+from constants.colors import BLACK, GREEN
 from constants.dimensions import WINDOW_SIZE, GRID_WIDTH, GRID_LENGTH
 
 
@@ -20,7 +20,9 @@ agent = WaiterAgent(env.grid[0][0])
 map_renderer = MapRenderer(env, screen, agent)
 env.grid[0][0].occupation = agent
 test_path = [env.grid[0][1], env.grid[0][2], env.grid[0][3], env.grid[0][4], env.grid[1][4],
-             env.grid[2][4], env.grid[1][4], env.grid[0][4], env.grid[0][3]]
+             env.grid[2][4], env.grid[3][4], env.grid[4][4], env.grid[4][3], env.grid[4][2],
+             env.grid[4][1], env.grid[4][0], env.grid[3][0], env.grid[2][0], env.grid[1][0],
+             env.grid[0][0]]
 
 done = False
 while not done:
@@ -31,7 +33,17 @@ while not done:
             pos = pygame.mouse.get_pos()
             column_clicked = math.trunc(pos[0] / 50)
             row_clicked = math.trunc(pos[1] / 50)
-            agent.path = find_path(agent, env.grid, row_clicked, column_clicked)
+            if column_clicked < 9 and row_clicked < 9:
+                try:
+                    field_clicked.load_default_surface()
+                except NameError:
+                    pass
+                for field in test_path: field.load_default_surface()
+                field_clicked = env.grid[row_clicked][column_clicked]
+                field_clicked.color_surface(GREEN)
+            
+#            agent.path = find_path(agent, env.grid, row_clicked, column_clicked)
+                agent.path = test_path.copy()
 
     screen.fill(BLACK)
     map_renderer.render()

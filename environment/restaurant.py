@@ -24,7 +24,7 @@ class Restaurant:
                                 Tile(self, row, col)
                                 if self._should_tile_be_empty(row, col)
                                 else
-                                Tile(self, row, col, Table(), cost=100)
+                                Tile(self, row, col, Table(), step_cost=100)
                                 for col in range(gw)
                             ]
                             for row in range(gl)
@@ -53,4 +53,4 @@ class Restaurant:
                                   self.grid.flatten()))
         random_tiles = random.choices(without_occupation, k=24)
         for tile in random_tiles:
-            tile.cost = 1
+            tile.step_cost = 1

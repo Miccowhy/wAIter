@@ -18,7 +18,7 @@ class Node():
 
 def find_path(agent, grid, row_clicked, column_clicked):
     agent._check_direction(grid[row_clicked][column_clicked])
-    costs = [[grid[row][col].cost for col in range(GRID_LENGTH)] for row in range(GRID_WIDTH)]
+    costs = [[grid[row][col].step_cost for col in range(GRID_LENGTH)] for row in range(GRID_WIDTH)]
     path_grid_coords = astar(costs, (agent.current_tile.row_index, agent.current_tile.col_index),
                                     (row_clicked, column_clicked))
     print(path_grid_coords)

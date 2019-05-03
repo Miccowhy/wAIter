@@ -19,7 +19,7 @@ class MapRenderer:
                 self._draw(tile)
                 if tile.occupation is not None:
                     self._draw(tile.occupation)
-                if tile.cost == 1:
+                if tile.step_cost == 1:
                     self._draw(tile, image=BANANA)
 
     def _draw(self, tile, image=None):
