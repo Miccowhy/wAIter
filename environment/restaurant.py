@@ -51,6 +51,6 @@ class Restaurant:
     def _randomize_costs(self):
         without_occupation = list(filter(lambda x: x.occupation is None and x.row_index != 0 and x.col_index != 0,
                                   self.grid.flatten()))
-        random_tiles = random.choices(without_occupation, k=24)
+        random_tiles = random.choices(without_occupation, k=10)
         for tile in random_tiles:
             tile.step_cost = 1
