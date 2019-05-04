@@ -33,17 +33,23 @@ while not done:
             pos = pygame.mouse.get_pos()
             column_clicked = math.trunc(pos[0] / 50)
             row_clicked = math.trunc(pos[1] / 50)
-            if column_clicked < 9 and row_clicked < 9:
+            if column_clicked < GRID_WIDTH and row_clicked < GRID_LENGTH:
                 try:
                     field_clicked.load_default_surface()
                 except NameError:
                     pass
-                for field in test_path: field.load_default_surface()
+                try:
+                    for field in way_to_go:
+                        field.load_default_surface()
+                except NameError:
+                    pass
+                way_to_go = find_path(agent, env.grid, row_clicked, column_clicked)
+                #print(way_to_go)
                 field_clicked = env.grid[row_clicked][column_clicked]
                 field_clicked.color_surface(GREEN)
             
-#            agent.path = find_path(agent, env.grid, row_clicked, column_clicked)
-                agent.path = test_path.copy()
+                agent.path = way_to_go.copy()
+#                agent.path = test_path.copy()
 
     screen.fill(BLACK)
     map_renderer.render()
