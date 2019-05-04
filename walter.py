@@ -6,6 +6,7 @@ from environment.restaurant import Restaurant
 from entities.waiter_agent import WaiterAgent
 from constants.colors import BLACK, GREEN
 from constants.dimensions import WINDOW_SIZE, GRID_WIDTH, GRID_LENGTH
+from constants.sounds import MUSIC
 
 
 pygame.init()
@@ -14,6 +15,8 @@ screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("WalterAI")
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
+
+pygame.mixer.music.play(-1)
 
 env = Restaurant(GRID_WIDTH, GRID_LENGTH)
 agent = WaiterAgent(env.grid[0][0])
