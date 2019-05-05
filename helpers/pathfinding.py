@@ -33,11 +33,11 @@ def astar_search(agent, goal):
             if is_first_visit(successor, explored, frontier):
                 frontier.append(successor)
             # This condition is probably not correct as it doesn't take into account total cost
-            elif successor in frontier and successor['tile'].cost > node['tile'].cost:
+            elif successor in frontier and successor['tile'].step_cost > node['tile'].step_cost:
                 frontier[frontier.index(successor)] = node
 
         frontier.sort(key=lambda state:
-                      state['tile'].cost + get_distance(state['tile'].rect, goal['tile'].rect))
+                      state['tile'].step_cost + get_distance(state['tile'].rect, goal['tile'].rect))
 
 
 def is_first_visit(successor, explored, frontier):
@@ -64,9 +64,7 @@ def goal_achieved(state, goal):
 
 
 def get_distance(a, b):
-    o = np.sum(np.abs(np.subtract(a, b)))
-    print(o)
-    return o
+    return np.sum(np.abs(np.subtract(a, b)))
 
 
 def map_without_parent(lis):

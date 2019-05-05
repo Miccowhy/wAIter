@@ -3,7 +3,7 @@ import random
 from .table import Table
 from .tile import Tile
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
-from constants.movement import BANANA_COST
+from constants.bananas import BANANA_COST, BANANA_AMOUNT
 
 
 class Restaurant:
@@ -25,7 +25,7 @@ class Restaurant:
                                 Tile(self, row, col)
                                 if self._should_tile_be_empty(row, col)
                                 else
-                                Tile(self, row, col, Table(), cost=100)
+                                Tile(self, row, col, Table(), step_cost=100)
                                 for col in range(gw)
                             ]
                             for row in range(gl)
@@ -52,6 +52,6 @@ class Restaurant:
     def _randomize_costs(self):
         without_occupation = list(filter(lambda x: x.occupation is None and x.row_index != 0 and x.col_index != 0,
                                   self.grid.flatten()))
-        random_tiles = random.choices(without_occupation, k=24)
+        random_tiles = random.choices(without_occupation, k=BANANA_AMOUNT)
         for tile in random_tiles:
-            tile.cost = BANANA_COST
+            tile.step_cost = BANANA_COST

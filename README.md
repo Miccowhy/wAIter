@@ -27,3 +27,4 @@ Following assets were used in the project:
 * [Various Walkcycle](https://opengameart.org/content/various-walkcycle-8-characters) by **Skab**
 * [RPG Indoor Tileset Expansion1](https://opengameart.org/content/rpg-indoor-tileset-expansion-1) by **Redshrike** and **Jetrel**
 * [Indoor Tileset](https://opengameart.org/content/indoor-tileset) by **2DPIXX**
+* [Warm Vacuum Tube](http://dig.ccmixter.org/files/admiralbob77/59533)  by **Admiral Bob** (c) copyright 2019 Licensed under a Creative Commons Attribution (3.0) license. Ft: **starfrosch**
