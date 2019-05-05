@@ -1,5 +1,6 @@
 import pygame
 from constants.images import BANANA
+from constants.movement import BANANA_COST
 
 
 class MapRenderer:
@@ -19,7 +20,7 @@ class MapRenderer:
                 self._draw(tile)
                 if tile.occupation is not None:
                     self._draw(tile.occupation)
-                if tile.cost == 1:
+                if tile.cost == BANANA_COST:
                     self._draw(tile, image=BANANA)
 
     def _draw(self, tile, image=None):

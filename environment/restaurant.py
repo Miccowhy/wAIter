@@ -3,6 +3,7 @@ import random
 from .table import Table
 from .tile import Tile
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
+from constants.movement import BANANA_COST
 
 
 class Restaurant:
@@ -53,4 +54,4 @@ class Restaurant:
                                   self.grid.flatten()))
         random_tiles = random.choices(without_occupation, k=24)
         for tile in random_tiles:
-            tile.cost = 1
+            tile.cost = BANANA_COST
