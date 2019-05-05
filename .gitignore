@@ -58,3 +58,7 @@ target/
 
 # Text editors:
 .vscode/
+.idea/
+
+# Other
+resources/in_progress/

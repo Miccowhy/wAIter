@@ -1,7 +1,9 @@
 import numpy as np
+import random
 from .table import Table
 from .tile import Tile
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
+from constants.bananas import BANANA_AMOUNT
 
 
 class Restaurant:
@@ -10,6 +12,7 @@ class Restaurant:
         self.grid_width = grid_width
         self.grid = self._generate_grid()
         self._assign_cords()
+        self._randomize_costs()
 
     def _generate_grid(self):
         gw = self.grid_width
@@ -22,7 +25,7 @@ class Restaurant:
                                 Tile(self, row, col)
                                 if self._should_tile_be_empty(row, col)
                                 else
-                                Tile(self, row, col, Table())
+                                Tile(self, row, col, Table(), step_cost=100)
                                 for col in range(gw)
                             ]
                             for row in range(gl)
@@ -45,3 +48,10 @@ class Restaurant:
                 tile.rect = tile.image.get_rect(topleft=(x[col], y[row]))
                 if tile.occupation is not None:
                     tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[col], y[row]))
+
+    def _randomize_costs(self):
+        without_occupation = list(filter(lambda x: x.occupation is None and x.row_index != 0 and x.col_index != 0,
+                                  self.grid.flatten()))
+        random_tiles = random.choices(without_occupation, k=BANANA_AMOUNT)
+        for tile in random_tiles:
+            tile.step_cost = 1

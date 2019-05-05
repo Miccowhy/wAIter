@@ -1,8 +1,11 @@
 import numpy as np
+import random
 from gui.drawable import Drawable
 from gui.animator import Animator
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
 from constants.movement import MIN_DISTANCE, MOVEMENT_SPEED, Direction
+from constants.sounds import STEPS
+from constants.colors import YELLOW
 
 
 class Entity(Drawable):
@@ -18,7 +21,9 @@ class Entity(Drawable):
         if self.path:
             next_tile = self.path[0]
             self._move(next_tile)
+            self.current_tile.color_surface(YELLOW)
             if self._is_within_min_distance(self.rect.center, next_tile.rect.center):
+                random.choice(STEPS).play()
                 prev_tile = self.current_tile
                 self.current_tile = next_tile
                 self.current_tile.occupation = self

@@ -1,6 +1,4 @@
-import numpy as np
-import time
-from itertools import cycle
+from constants.dimensions import GRID_LENGTH, GRID_WIDTH
 # a star alghortihm implementation
 
 class Node():
@@ -15,6 +13,29 @@ class Node():
 
     def __eq__(self, other):
         return self.position == other.position
+
+
+def find_path(agent, grid, row_clicked, column_clicked):
+    agent._check_direction(grid[row_clicked][column_clicked])
+    costs = [[grid[row][col].step_cost for col in range(GRID_LENGTH)] for row in range(GRID_WIDTH)]
+    path_grid_coords = astar(costs, (agent.current_tile.row_index, agent.current_tile.col_index),
+                                    (row_clicked, column_clicked))
+    print(path_grid_coords)
+    path = []
+    for cords in path_grid_coords:
+        path.append(grid[cords[0]][cords[1]])
+
+    print(grid.flatten())
+    #path = [tile for tile in grid.flatten() for cords in path_grid_coords
+    #        if tile.row_index == cords[0] and tile.col_index == cords[1]]
+    print(costs)
+    print(path_grid_coords)
+    print(path)
+    for element in path:
+        print(element.row_index, element.col_index)
+    #if agent.direction == Direction.LEFT or agent.direction == Direction.UP:
+    #   path.reverse()
+    return path
 
 
 def astar(maze, start, end):
@@ -47,13 +68,17 @@ def astar(maze, start, end):
             while current is not None:
                 path.append(current.position)
                 current = current.parent
+            if path[-1] == path[0]:
+                path.remove(path[-1])
             return path[::-1]
 
         children = []
         for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]: # Adjacent squares
 
-            node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
-            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0:
+            node_position = (current_node.position[0] + new_position[0],
+                             current_node.position[1] + new_position[1])
+            if (node_position[0] > (len(maze) - 1) or node_position[0] < 0 
+                    or node_position[1] > (len(maze[len(maze)-1]) - 1) or node_position[1] < 0):
                 continue
             if maze[node_position[0]][node_position[1]] != 0:
                 continue
@@ -62,14 +87,13 @@ def astar(maze, start, end):
             children.append(new_node)
 
         for child in children:
-            #print(child)
             for closed_child in closed_list:
-                #print(closed_child)
                 if child == closed_child:
                     continue
 
             child.g = current_node.g + 1
-            child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            child.h = (((child.position[0] - end_node.position[0]) ** 2)
+                     + ((child.position[1] - end_node.position[1]) ** 2))
             child.f = child.g + child.h
 
             print(open_list) #debugging
