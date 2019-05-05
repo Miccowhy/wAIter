@@ -33,6 +33,7 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            print(env.grid)
             pos = pygame.mouse.get_pos()
             column_clicked = math.trunc(pos[0] / 50)
             row_clicked = math.trunc(pos[1] / 50)
