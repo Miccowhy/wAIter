@@ -1,13 +1,12 @@
-import numpy as np
-from helpers.np_array_helper import sliding_window
 from gui.drawable import Drawable
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
 from constants.images import FLOOR, ENTRANCE
+from constants.movement import Direction
 
 
 class Tile(Drawable):
     def __init__(self, environment, row_index, col_index, occupation=None,
-                 is_kitchen_entrance=False, color=None, loaded_image=FLOOR, cost=0):
+                 is_kitchen_entrance=False, color=None, loaded_image=FLOOR, cost=1):
         if is_kitchen_entrance:
             loaded_image = ENTRANCE
         super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, color=color,
@@ -19,18 +18,21 @@ class Tile(Drawable):
         self.is_kitchen_entrance = is_kitchen_entrance
         self.cost = cost
 
-    # https://stackoverflow.com/questions/10996769/pixel-neighbors-in-2d-array-image-using-python
-    def neighbors(self, distance=1):
-        i = self.row_index
-        j = self.col_index
-        w = sliding_window(self.environment.grid, 2 * distance + 1)
+    def neighbors(self):
+        indices_differences = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        neighbors = []
+        for diff in indices_differences:
+            row = max(self.row_index + diff[0], 0)
+            col = max(self.col_index + diff[1], 0)
+            try:
+                neighbors.append(self.environment.grid[row][col])
+            except IndexError:
+                continue
+        return neighbors
 
-        ix = np.clip(i - distance, 0, w.shape[0] - 1)
-        jx = np.clip(j - distance, 0, w.shape[1] - 1)
+    def unoccupied_neighbors(self):
+        return [neighbor for neighbor in self.neighbors() if neighbor.occupation is None]
 
-        i0 = max(0, i - distance - ix)
-        j0 = max(0, j - distance - jx)
-        i1 = w.shape[2] - max(0, distance - i + ix)
-        j1 = w.shape[3] - max(0, distance - j + jx)
-
-        return w[ix, jx][i0:i1, j0:j1].ravel()
+    def unoccupied_neighbors_by_directions(self, direction):
+        return [{'tile': neighbor, 'direction': Direction.obtain_direction(self, neighbor)}
+                for neighbor in self.unoccupied_neighbors()]
