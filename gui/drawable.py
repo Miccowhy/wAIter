@@ -1,5 +1,6 @@
 import pygame
-from constants.colors import YELLOW, GREEN
+from constants.colors import YELLOW
+
 
 class Drawable(object):
     def __init__(self, width=None, height=None, color=None, loaded_image=None):

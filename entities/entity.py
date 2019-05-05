@@ -5,7 +5,6 @@ from gui.animator import Animator
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
 from constants.movement import MIN_DISTANCE, MOVEMENT_SPEED, Direction
 from constants.sounds import STEPS
-from constants.colors import YELLOW
 
 
 class Entity(Drawable):
@@ -21,7 +20,6 @@ class Entity(Drawable):
         if self.path:
             next_tile = self.path[0]
             self._move(next_tile)
-            self.current_tile.color_surface(YELLOW)
             if self._is_within_min_distance(self.rect.center, next_tile.rect.center):
                 random.choice(STEPS).play()
                 prev_tile = self.current_tile
@@ -33,20 +31,10 @@ class Entity(Drawable):
     def _is_within_min_distance(self, a, b):
         return (np.abs(np.subtract(a, b)) <= MIN_DISTANCE).all()
 
-    def _move(self, destination_tile):
-        self._check_direction(destination_tile)
+    def _move(self, destination):
+        self.animator.change_direction(Direction.obtain_direction(self.current_tile, destination))
         self.animator.animate_movement()
-        self.rect.center = self._move_towards(destination_tile)
-
-    def _check_direction(self, destination_tile):
-        if destination_tile.row_index < self.current_tile.row_index:
-            self.animator.change_direction(Direction.UP)
-        elif destination_tile.row_index > self.current_tile.row_index:
-            self.animator.change_direction(Direction.DOWN)
-        elif destination_tile.col_index < self.current_tile.col_index:
-            self.animator.change_direction(Direction.LEFT)
-        elif destination_tile.col_index > self.current_tile.col_index:
-            self.animator.change_direction(Direction.RIGHT)
+        self.rect.center = self._move_towards(destination)
 
     def _move_towards(self, destination_tile):
         cur_tile_cords = self.rect.center

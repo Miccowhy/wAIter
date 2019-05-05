@@ -13,6 +13,6 @@ sounds_path = os.path.join(root_path, 'resources/sounds')
 MUSIC = mixer.music.load(os.path.join(sounds_path, 'vacuum.mp3'))
 
 STEPS = [mixer.Sound(os.path.join(sounds_path, 'steps1.wav')),
-        mixer.Sound(os.path.join(sounds_path, 'steps2.wav'))]
+         mixer.Sound(os.path.join(sounds_path, 'steps2.wav'))]
 
-#pygame.mixer.Sound(os.path.join(sounds_path, 'walk1.mp3'))
+# pygame.mixer.Sound(os.path.join(sounds_path, 'walk1.mp3'))

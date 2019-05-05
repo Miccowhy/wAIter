@@ -22,7 +22,7 @@ class Animator:
         pygame.time.set_timer(pygame.USEREVENT, MOVEMENT_ANIMATION_INTERVAL)
 
     def change_direction(self, direction):
-        if self.entity.direction != direction:
+        if self.entity.direction != direction and direction is not None:
             self.entity.direction = direction
             self.entity.image = self.sprites[direction][1]
 
