@@ -17,6 +17,7 @@ pygame.display.set_caption("WalterAI")
 clock = pygame.time.Clock()
 
 pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.1)
 
 env = Restaurant(GRID_WIDTH, GRID_LENGTH)
 agent = WaiterAgent(env.grid[0][0])
