@@ -4,7 +4,6 @@
 Project is developed by:
 + Mikołaj Aleksandrzak
 + Kamil Beker
-+ Michał Dyczkowski
 + Szymon Kuleczka
 
 Artificial Intelligence, summer semester 2018/2019
