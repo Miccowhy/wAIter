@@ -52,7 +52,7 @@ def astar_search(agent, goal):
     explored = []
 
     while frontier:
-        node = frontier.pop(0)
+        node = frontier.pop()
         if node.goal_achieved():
             path = [node]
             while node['parent'] is not None:
@@ -69,8 +69,7 @@ def astar_search(agent, goal):
             elif successor in frontier and successor['tile'].step_cost > node['tile'].step_cost:
                 frontier[frontier.index(successor)] = node
 
-        frontier.sort(key=lambda state:
-                      state['tile'].step_cost + get_distance(state['tile'].rect, goal['tile'].rect))
+        frontier.sort(key=lambda node: node.cost, reverse=True)
 
 
 def is_first_visit(successor, explored, frontier):
