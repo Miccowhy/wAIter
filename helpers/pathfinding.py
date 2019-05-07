@@ -23,15 +23,16 @@ from constants.movement import Direction
 class Node:
     def __init__(self, tile, direction, goal, action=None, parent=None, cost=None):
         self.state = {'tile': tile, 'direction': direction}
+        self.goal = goal
         self.action = action
         self.parent = parent
-        self.goal = goal
         if cost is None:
             cur_cords = (self.state['tile'].rect[0], self.state['tile'].rect[1])
             dest_cords = (self.goal['tile'].rect[0], self.goal['tile'].rect[1])
             cost = tile.step_cost + self._calculate_distance(cur_cords, dest_cords)
+        self.cost = cost
         if parent is not None:
-            cost = cost + parent.cost
+            cost = cost + parent.path_cost
         self.path_cost = cost
 
     def goal_achieved(self):
