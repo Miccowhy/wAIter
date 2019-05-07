@@ -28,6 +28,10 @@ class Node:
                     self._calculate_distance(cur_cords, dest_cords))
         self.cost = cost
 
+    def goal_achieved(self):
+        return (self.state['tile'] is self.goal['tile']
+                and self.state['direction'] is self.goal['direction'])
+
     def _calculate_distance(self, a, b):
         return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
 
@@ -49,7 +53,7 @@ def astar_search(agent, goal):
 
     while frontier:
         node = frontier.pop(0)
-        if goal_achieved(node, goal):
+        if node.goal_achieved():
             path = [node]
             while node['parent'] is not None:
                 path.append(node['parent'])
@@ -90,10 +94,6 @@ def successors(node):
         successors.append(Node(neighbor['tile'], neighbor['direction'], action_with_dir,
                                node.goal, parent=node))
     return successors
-
-
-def goal_achieved(state, goal):
-    return state['tile'] == goal['tile'] and state['direction'] == goal['direction']
 
 
 def get_distance(a, b):
