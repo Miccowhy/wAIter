@@ -27,7 +27,7 @@ class Animator:
             self.entity.image = self.sprites[direction][1]
 
     def fix_standing_position(self):
-        if not self.entity.path:
+        if not self.entity.actions:
             self.entity.image = self.sprites[self.entity.direction][1]
 
     def animate_movement(self):

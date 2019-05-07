@@ -38,15 +38,16 @@ while not done:
             field_clicked.color_surface(GREEN)
 
             goal = {'tile': field_clicked, 'direction': Direction.DOWN}
-            states_sequence = astar_search(agent, goal)
-            agent.path = [state['tile'] for state in states_sequence]
-            for tile in agent.path:
+            node_seq = astar_search(agent, goal)
+            agent.actions = [node.action for node in node_seq]
+            tile_seq = [node.state['tile'] for node in node_seq]
+            for tile in tile_seq:
                 tile.color_surface(YELLOW)
 
     screen.fill(BLACK)
 
     try:
-        if not agent.path:
+        if not agent.actions:
             for tile in env.grid.flatten():
                 tile.load_default_surface()
     except NameError:
@@ -57,6 +58,6 @@ while not done:
     clock.tick(30)
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
-    agent.follow_path()
+    agent.follow_actions()
 
 pygame.quit()

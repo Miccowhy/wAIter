@@ -33,6 +33,6 @@ class Tile(Drawable):
     def unoccupied_neighbors(self):
         return [neighbor for neighbor in self.neighbors() if neighbor.occupation is None]
 
-    def unoccupied_neighbors_by_directions(self, direction):
+    def unoccupied_neighbors_by_directions(self):
         return [{'tile': neighbor, 'direction': Direction.obtain_direction(self, neighbor)}
                 for neighbor in self.unoccupied_neighbors()]
