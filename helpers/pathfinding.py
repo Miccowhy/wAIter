@@ -49,7 +49,7 @@ class Action(Enum):
 def astar_search(agent, goal):
     initial_node = Node(agent.current_tile, agent.direction, goal)
     frontier = [initial_node]
-    explored = []
+    explored = set()
 
     while frontier:
         node = frontier.pop()
@@ -60,7 +60,7 @@ def astar_search(agent, goal):
                 node = node['parent']
             path.reverse()
             return path
-        explored.append(node)
+        explored.add(node)
 
         for successor in successors(node):
             if is_first_visit(successor, explored, frontier):
