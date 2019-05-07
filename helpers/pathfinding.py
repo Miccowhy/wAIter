@@ -1,13 +1,19 @@
-# Suppose our current tile is grid[0][1]
-# State is hash, i.e.
-# {'tile': grid[0][1], 'direction': Direction.DOWN}
-# Goal is also a hash, i.e.
-# {'tile': env.grid[2][6], 'direction': Direction.LEFT}
-# Successor function returns successors, which are all possible states,
-# reachable by single action from current state, i.e. (for our example state):
-# {'tile': grid[0][2], 'direction': Direction.DOWN},
-# {'tile': grid[0][1], 'direction': Direction.LEFT} etc...
-
+# This module implements A* search on state space
+# Source: AI: A Modern Approach by Stuart Russell and Peter Norvig
+# Each node consists of:
+# - state, which is a hash, i.e. {'tile': grid[0][0], 'direction': Direction.DOWN}
+# - goal, which is a state, in which agent has to end up in the end of the path
+# - action, which is a tuple with action (move or rotate) and corresponding direction,
+# which agent has to take in order to reach the consecutive state, i.e. {Action.MOVE, Direction.UP}
+# if he has to change state from {'tile': grid[1][0], 'direction': Direction.UP} to
+# {'tile': grid[0][0], 'direction': Direction.UP}
+# - parent, which is a reference to the node, which expanding allowed us to reach current node
+# - path cost, which is a sum of all costs across the current path
+# (calculated by parents references), each of node adds up tile step cost
+# (bananas have higher step cost than empy tiles) and distance cost,
+# which is calculated by obtaining distance from coordinates of middle of node tile to middle of
+# goal tile.
+# The algorithm is explained in Section 3 of the aforementioned book
 
 import math
 from enum import Enum
