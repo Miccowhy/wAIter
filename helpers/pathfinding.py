@@ -16,7 +16,7 @@ from constants.movement import Direction
 
 
 class Node:
-    def __init__(self, tile, direction, action, goal, parent=None, cost=None):
+    def __init__(self, tile, direction, goal, action=None, parent=None, cost=None):
         self.state = {'tile': tile, 'direction': direction}
         self.action = action
         self.parent = parent
@@ -47,8 +47,8 @@ class Action(Enum):
 
 
 def astar_search(agent, goal):
-    initial_state = {'tile': agent.current_tile, 'direction': agent.direction, 'parent': None}
-    frontier = [initial_state]
+    initial_node = Node(agent.current_tile, agent.direction, goal)
+    frontier = [initial_node]
     explored = []
 
     while frontier:
@@ -83,7 +83,8 @@ def successors(node):
     for dir in Direction:
         if dir is not node.state['direction']:
             action_with_dir = (Action.ROTATE, dir)
-            successors.append(Node(node.tile, dir, action_with_dir, node.goal, parent=node, cost=0))
+            successors.append(Node(node.tile, dir, node.goal, action=action_with_dir,
+                                   parent=node, cost=0))
 
     active_neighbors = [neighbor for neighbor in
                         node.state['tile'].unoccupied_neighbors_by_directions(node.state['direction'])
@@ -91,8 +92,8 @@ def successors(node):
 
     for neighbor in active_neighbors:
         action_with_dir = (Action.MOVE, neighbor['direction'])
-        successors.append(Node(neighbor['tile'], neighbor['direction'], action_with_dir,
-                               node.goal, parent=node))
+        successors.append(Node(neighbor['tile'], neighbor['direction'], node.goal,
+                          action=action_with_dir, parent=node))
     return successors
 
 
