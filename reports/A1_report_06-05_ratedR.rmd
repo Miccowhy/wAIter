@@ -1,0 +1,57 @@
+---
+title: "Walter - an autonomous wAIter - report II"
+#author:
+#- "Mikolaj Aleksandrzak"
+#- "Kamil Beker"
+#- "Szymon Kuleczka"
+date: "May 6, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## A\*
+
+A\* code is located in the *helpers/pathfinding.py* file. It computes path to the destination tile operating on state space - factoring in not only just neighboring tiles like a graph, but also their direction relative to predecessor's (and agent's) position.
+
+### astar_search()
+This method takes as the arguments waiter's (agent's) object and destination (goal) tile.
+
+Tile on which agent resides, as well as direction in which agent's facing is put into an *initial_state* variable. It is then passed to list *frontier*. We also initialize empty list *explored*, where, as name shows, already visited nodes are stored.
+
+We're checking and removing first element of *frontier* and naming it *node*. If it's the goal, that's it, A\* job is done. *node* is passed to the list **path**, where parent nodes are "unwinded" and appended to that list, up untill hitting origin (agent's) node, which has no parent. List is then reversed and returned, as it is the final path to follow. If it's not, node is appended to *explored* list and passed to the ***successors()*** function to extract immediate successors and append them to *frontier* if they weren't already visited. After all this, entries in *frontier* are sorted.
+
+### successors()
+This method checks which states are available as immediate successors - that is, are another directions of the same tile (so that agent may simply turn as a next action), or are a currently faced neighboring tile (so that agent may step forward). They are then appended to list *successors* with node passed to function assigned as their parent. *successors* are then returned to ***astar_search()***.
+
+### is_first_visit()
+This function is used to check if a given node (*successor*) wasn't visited previously (*explored*) or is not in the queue to be visited (*frontier*) already.
+
+### goal_achieved()
+Check if state (tile and direction) are the same as destination's. Used by ***astar_search()***.
+
+### get_distance()
+Computes distance (in straight line) between two tiles. Used as additional parameter in sorting *frontier*'s elements.
+
+### map_without_parent()
+Maps results from ***without_parent()*** to a given list. Used by ***is_first_visit()***.
+
+### without_parent()
+Iterates over successors checking, if none of them is already the parent node. Used by ***map_without_parent()*** and ***is_first_visit()***.
+
+
+## Other changes
+
+### Complete GUI rework
+Full graphical overhaul - instead of previous iteration, where elements on a grid were identified only by field's color, current wAIter version is outfitted with state-of-the-art textures and sprites, as well as bleeding-edge animations. We've even added sounds for that ultimate lifelike experience.
+
+### Visual path tracking
+After setting destination and determining optimal path, we're now tracing it on a grid, for a visually appealing, meaningful and comfortable representation.
+
+### Refactoring, bug fixes
+Title says it all.
+
+### Blood sacrifice
+We've studied dark arts to make a pact to peek beyond a veil of reality. It gave us unspoken powers, but such things don't come easily or for free. Sufficient to say, our team shrinked to three.
