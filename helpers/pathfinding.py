@@ -10,7 +10,30 @@
 
 
 import numpy as np
+import math
 from constants.movement import Direction
+
+
+class Node:
+    def __init__(self, tile, direction, action, goal, parent=None, cost=None):
+        self.state = (tile, direction)
+        self.action = action
+        self.parent = parent
+        self.goal = goal
+        if cost is None:
+            cur_cords = (self.tile.rect[0], self.tile.rect[1])
+            dest_cords = (self.tile.rect[0], self.tile.rect[1])
+            cost = (self.parent.cost + tile.step_cost +
+                    self._calculate_distance(cur_cords, dest_cords))
+        self.cost = cost
+
+    def _calculate_distance(self, a, b):
+        return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+
+    def __eq__(self, other):
+        return (self.state == other.state and self.action == other.action
+                and self.goal == other.goal and self.parent == other.parent
+                and self.cost == other.cost)
 
 
 def astar_search(agent, goal):
