@@ -32,7 +32,7 @@ class Node:
             cost = tile.step_cost + self._calculate_distance(cur_cords, dest_cords)
         if parent is not None:
             cost = cost + parent.cost
-        self.cost = cost
+        self.path_cost = cost
 
     def goal_achieved(self):
         return (self.state['tile'] is self.goal['tile']
@@ -75,7 +75,7 @@ def astar_search(agent, goal):
                 if node_to_swap_index:
                     frontier[node_to_swap_index] = successor
 
-        frontier.sort(key=lambda node: node.cost, reverse=True)
+        frontier.sort(key=lambda node: node.path_cost, reverse=True)
 
 
 def successors(node):
@@ -99,5 +99,5 @@ def successors(node):
 
 def find_higher_path_cost(successor, frontier):
     for node in frontier:
-        if successor.state == node.state and node.cost > successor.cost:
+        if successor.state == node.state and node.path_cost > successor.path_cost:
             return frontier.index(node)
