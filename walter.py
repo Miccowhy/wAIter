@@ -38,8 +38,13 @@ while not done:
             field_clicked.color_surface(GREEN)
 
             goal = {'tile': field_clicked, 'direction': Direction.DOWN}
-            states_sequence = astar_search(agent, goal)
-            agent.path = [state['tile'] for state in states_sequence]
+            node_sequence = astar_search(agent, goal)
+            sum = 0
+            for node in node_sequence:
+                print(node.cost)
+                sum = sum + node.cost
+            print('sum=', sum)
+            agent.path = [node.state['tile'] for node in node_sequence]
             for tile in agent.path:
                 tile.color_surface(YELLOW)
 

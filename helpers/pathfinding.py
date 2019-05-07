@@ -22,10 +22,11 @@ class Node:
         self.parent = parent
         self.goal = goal
         if cost is None:
-            cur_cords = (self.tile.rect[0], self.tile.rect[1])
-            dest_cords = (self.tile.rect[0], self.tile.rect[1])
-            cost = (self.parent.cost + tile.step_cost +
-                    self._calculate_distance(cur_cords, dest_cords))
+            cur_cords = (self.state['tile'].rect[0], self.state['tile'].rect[1])
+            dest_cords = (self.goal['tile'].rect[0], self.goal['tile'].rect[1])
+            cost = tile.step_cost + self._calculate_distance(cur_cords, dest_cords)
+        if parent is not None:
+            cost = cost + parent.cost
         self.cost = cost
 
     def goal_achieved(self):
@@ -36,9 +37,7 @@ class Node:
         return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
 
     def __eq__(self, other):
-        return (self.state == other.state and self.action == other.action
-                and self.goal == other.goal and self.parent == other.parent
-                and self.cost == other.cost)
+        return (self.state == other.state)
 
 
 class Action(Enum):
@@ -47,34 +46,41 @@ class Action(Enum):
 
 
 def astar_search(agent, goal):
-    initial_node = Node(agent.current_tile, agent.direction, goal)
+    initial_node = Node(agent.current_tile, agent.direction, goal, cost=0)
     frontier = [initial_node]
-    explored = set()
+    explored = []
 
     while frontier:
         node = frontier.pop()
         if node.goal_achieved():
             path = [node]
-            while node['parent'] is not None:
-                path.append(node['parent'])
-                node = node['parent']
+            while node.parent is not None:
+                path.append(node.parent)
+                node = node.parent
             path.reverse()
             return path
-        explored.add(node)
+
+        explored.append(node.state)
 
         for successor in successors(node):
-            if is_first_visit(successor, explored, frontier):
+            if successor not in frontier and successor.state not in explored:
                 frontier.append(successor)
-            # This condition is probably not correct as it doesn't take into account total cost
-            elif successor in frontier and successor['tile'].step_cost > node['tile'].step_cost:
-                frontier[frontier.index(successor)] = node
+            else:
+                node_to_swap_index = find_higher_path_cost(successor, frontier)
+                if node_to_swap_index:
+                    frontier[node_to_swap_index] = successor
 
         frontier.sort(key=lambda node: node.cost, reverse=True)
 
 
-def is_first_visit(successor, explored, frontier):
-    return (without_parent(successor) not in map_without_parent(explored)
-            and without_parent(successor) not in map_without_parent(frontier))
+def find_higher_path_cost(successor, frontier):
+    for node in frontier:
+        if successor.state == node.state and node.cost > successor.cost:
+            return frontier.index(node)
+
+
+def is_first_visit(node, explored, frontier):
+    return node not in explored and node not in frontier
 
 
 def successors(node):
@@ -82,7 +88,7 @@ def successors(node):
     for dir in Direction:
         if dir is not node.state['direction']:
             action_with_dir = (Action.ROTATE, dir)
-            successors.append(Node(node.tile, dir, node.goal, action=action_with_dir,
+            successors.append(Node(node.state['tile'], dir, node.goal, action=action_with_dir,
                                    parent=node, cost=0))
 
     active_neighbors = [neighbor for neighbor in
