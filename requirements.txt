@@ -1,4 +1,2 @@
 numpy==1.16.2
 pygame==1.9.4
-networkx==2.3
-matplotplib==3.0.3
