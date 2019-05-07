@@ -11,12 +11,13 @@
 
 import numpy as np
 import math
+from enum import Enum
 from constants.movement import Direction
 
 
 class Node:
     def __init__(self, tile, direction, action, goal, parent=None, cost=None):
-        self.state = (tile, direction)
+        self.state = {'tile': tile, 'direction': direction}
         self.action = action
         self.parent = parent
         self.goal = goal
@@ -34,6 +35,11 @@ class Node:
         return (self.state == other.state and self.action == other.action
                 and self.goal == other.goal and self.parent == other.parent
                 and self.cost == other.cost)
+
+
+class Action(Enum):
+    MOVE = 1
+    ROTATE = 2
 
 
 def astar_search(agent, goal):
@@ -68,17 +74,21 @@ def is_first_visit(successor, explored, frontier):
             and without_parent(successor) not in map_without_parent(frontier))
 
 
-def successors(state):
+def successors(node):
     successors = []
     for dir in Direction:
-        if dir is not state['direction']:
-            successors.append({'tile': state['tile'], 'direction': dir, 'parent': state})
+        if dir is not node.state['direction']:
+            action_with_dir = (Action.ROTATE, dir)
+            successors.append(Node(node.tile, dir, action_with_dir, node.goal, parent=node, cost=0))
+
     active_neighbors = [neighbor for neighbor in
-                        state['tile'].unoccupied_neighbors_by_directions(state['direction'])
-                        if neighbor['direction'] == state['direction']]
+                        node.state['tile'].unoccupied_neighbors_by_directions(node.state['direction'])
+                        if neighbor['direction'] == node.state['direction']]
+
     for neighbor in active_neighbors:
-        neighbor['parent'] = state
-        successors.append(neighbor)
+        action_with_dir = (Action.MOVE, neighbor['direction'])
+        successors.append(Node(neighbor['tile'], neighbor['direction'], action_with_dir,
+                               node.goal, parent=node))
     return successors
 
 
