@@ -9,7 +9,6 @@
 # {'tile': grid[0][1], 'direction': Direction.LEFT} etc...
 
 
-import numpy as np
 import math
 from enum import Enum
 from constants.movement import Direction
@@ -73,16 +72,6 @@ def astar_search(agent, goal):
         frontier.sort(key=lambda node: node.cost, reverse=True)
 
 
-def find_higher_path_cost(successor, frontier):
-    for node in frontier:
-        if successor.state == node.state and node.cost > successor.cost:
-            return frontier.index(node)
-
-
-def is_first_visit(node, explored, frontier):
-    return node not in explored and node not in frontier
-
-
 def successors(node):
     successors = []
     for dir in Direction:
@@ -102,13 +91,7 @@ def successors(node):
     return successors
 
 
-def get_distance(a, b):
-    return np.sum(np.abs(np.subtract(a, b)))
-
-
-def map_without_parent(lis):
-    return list(map(without_parent, lis))
-
-
-def without_parent(successor):
-    return {key: value for key, value in successor.items() if key != 'parent'}
+def find_higher_path_cost(successor, frontier):
+    for node in frontier:
+        if successor.state == node.state and node.cost > successor.cost:
+            return frontier.index(node)
