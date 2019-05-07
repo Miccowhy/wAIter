@@ -64,7 +64,7 @@ def astar_search(agent, goal):
                 path.append(node.parent)
                 node = node.parent
             path.reverse()
-            return path
+            return path[1:]
 
         explored.append(node.state)
 
@@ -88,7 +88,7 @@ def successors(node):
                                    parent=node, cost=0))
 
     active_neighbors = [neighbor for neighbor in
-                        node.state['tile'].unoccupied_neighbors_by_directions(node.state['direction'])
+                        node.state['tile'].unoccupied_neighbors_by_directions()
                         if neighbor['direction'] == node.state['direction']]
 
     for neighbor in active_neighbors:
