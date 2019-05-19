@@ -67,7 +67,7 @@ while not done:
         for index in range(len(predictions)):
             if predictions[index] == 1:
                 suggested_pizzas.append(PIZZAS_DF.iloc[index].name)
-        
+
         print('Suggested pizzas:', suggested_pizzas)
         map_renderer.text_queue = PIZZA_CONVERSATION(random.choice(suggested_pizzas))
         conversation_finished = True
