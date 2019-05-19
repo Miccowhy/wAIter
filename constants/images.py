@@ -14,3 +14,7 @@ BANANA = pygame.image.load(os.path.join(graphics_path, 'banana.png'))
 
 def WAITER_SPRITESHEET():
     return pygame.image.load(os.path.join(graphics_path, 'waiter_spritesheet.png')).convert()
+
+
+def CUSTOMER_SPRITESHEET():
+    return pygame.image.load(os.path.join(graphics_path, 'customer_spritesheet.png')).convert()
