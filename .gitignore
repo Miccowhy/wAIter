@@ -60,5 +60,8 @@ target/
 .vscode/
 .idea/
 
+# Output files, such as decision tree visualization
+out/
+
 # Other
 resources/in_progress/
