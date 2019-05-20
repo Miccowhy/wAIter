@@ -1,2 +1,5 @@
 numpy==1.16.2
 pygame==1.9.4
+keras==2.2.4
+tensorflow==2.0.0-alpha0
+music21==5.5.0
