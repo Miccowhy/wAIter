@@ -6,8 +6,8 @@ from constants.movement import Direction
 
 class Tile(Drawable):
     def __init__(self, environment, row_index, col_index, occupation=None,
-                 is_kitchen_entrance=False, color=None, loaded_image=FLOOR, step_cost=1):
-        if is_kitchen_entrance:
+                 is_restaurant_entrance=False, color=None, loaded_image=FLOOR, step_cost=1):
+        if is_restaurant_entrance:
             loaded_image = ENTRANCE
         super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, color=color,
                          loaded_image=loaded_image)
@@ -15,11 +15,11 @@ class Tile(Drawable):
         self.row_index = row_index
         self.col_index = col_index
         self.occupation = occupation
-        self.is_kitchen_entrance = is_kitchen_entrance
+        self.is_restaurant_entrance = is_restaurant_entrance
         self.step_cost = step_cost
 
-    def neighbors(self):
-        indices_differences = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    def neighbors(self, indices_differences=[(1, 0), (0, 1), (-1, 0), (0, -1)]):
+        #indices_differences = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         neighbors = []
         for diff in indices_differences:
             row = max(self.row_index + diff[0], 0)
@@ -30,8 +30,14 @@ class Tile(Drawable):
                 continue
         return neighbors
 
+    def quadrant(self):
+        return self.neighbors(indices_differences=[(1, 0), (0, 1), (-1, 0), (0, -1), (-1, -1), (-1, 1), (1, -1), (1, 1)])
+
     def unoccupied_neighbors(self):
         return [neighbor for neighbor in self.neighbors() if neighbor.occupation is None]
+
+    def unoccupied_quadrant(self):
+        return [neighbor for neighbor in self.quadrant() if neighbor.occupation is None]
 
     def unoccupied_neighbors_by_directions(self):
         return [{'tile': neighbor, 'direction': Direction.obtain_direction(self, neighbor)}

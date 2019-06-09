@@ -3,6 +3,7 @@ import random
 from ai.pathfinding import astar_search
 from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
+from environment.table import Table
 from entities.waiter_agent import WaiterAgent
 from entities.customer import Customer
 from constants.colors import BLACK
@@ -10,6 +11,8 @@ from constants.dimensions import WINDOW_SIZE, GRID_WIDTH, GRID_LENGTH
 from constants.movement import Direction
 from constants.datasets import PIZZAS_DF
 from constants.conversations import PIZZA_CONVERSATION
+
+from itertools import chain
 
 pygame.init()
 
@@ -21,7 +24,7 @@ clock = pygame.time.Clock()
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
-env = Restaurant(GRID_WIDTH, GRID_LENGTH)
+env = Restaurant(GRID_LENGTH, GRID_WIDTH)
 agent = WaiterAgent(env.grid[0][0])
 customer = Customer(env.grid[8][4], direction=Direction.UP)
 env.grid[0][0].occupation = agent
@@ -36,6 +39,12 @@ agent_goal = {'tile': env.grid[3][4], 'direction': Direction.RIGHT}
 agent_node_seq = astar_search(agent, agent_goal)
 customer.actions = [node.action for node in cus_node_seq]
 agent.actions = [node.action for node in agent_node_seq]
+'''
+for i in range(GRID_WIDTH):
+    for j in range(GRID_LENGTH):
+        if isinstance(env.grid[i][j].occupation, Table):
+            print(str(i) + ", " + str(j))
+'''
 
 done = False
 while not done:
