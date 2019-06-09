@@ -20,6 +20,7 @@ class Animator:
         self.cur_frame = 1
         # Set timer for movement animation
         pygame.time.set_timer(pygame.USEREVENT, MOVEMENT_ANIMATION_INTERVAL)
+        self.fix_standing_position()
 
     def change_direction(self, direction):
         if self.entity.direction != direction and direction is not None:

@@ -1,0 +1,16 @@
+name,ham,salami,pepper,mushrooms,pineapple,onion,tomato
+Margaritha,0,0,0,0,0,0,0
+Funghi,0,0,0,1,0,0,0
+Vesuvio,1,0,0,0,0,0,0
+Cacciatore,0,1,0,0,0,0,0
+Capriciosa,1,0,0,1,0,0,0
+Hawaian,1,0,0,0,1,0,0
+Toscana,0,1,0,1,0,0,0
+Podhale,0,1,0,0,0,1,0
+Pepperoni,0,1,1,0,0,1,0
+Decoro,1,0,1,1,0,0,0
+Pomodoro,0,0,0,0,0,0,1
+Farmer,1,0,0,1,0,1,0
+Rimini,1,1,0,1,0,1,0
+Family,1,0,0,0,0,1,1
+Bolonia,1,0,1,1,0,1,0

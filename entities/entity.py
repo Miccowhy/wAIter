@@ -5,16 +5,19 @@ from gui.animator import Animator
 from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
 from constants.movement import MIN_DISTANCE, MOVEMENT_SPEED, Direction
 from constants.sounds import STEPS
-from helpers.pathfinding import Action
+from ai.pathfinding import Action
+from copy import deepcopy
 
 
 class Entity(Drawable):
     def __init__(self, current_tile, loaded_image=None, actions=None, direction=Direction.DOWN):
         super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, loaded_image=loaded_image)
         self.current_tile = current_tile
+        self.rect = deepcopy(self.current_tile.rect)
         self.actions = actions
+        self.direction = direction
         self.animator = Animator(self, self.loaded_image)
-        self.direction = Direction.DOWN
+
 
     def follow_actions(self):
         self.animator.fix_standing_position()
