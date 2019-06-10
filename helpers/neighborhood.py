@@ -1,5 +1,11 @@
+from environment.restaurant import Restaurant
+
 class Neighborhood:
-    def __init__(self, indices_differences=[(1, 0), (0, 1), (-1, 0), (0, -1)])
+    def __init__(self, environment, row_index, col_index):
+        self.environment = environment
+        self.row_index = row_index
+        self.col_index = col_index
+
     def neighbors(self, indices_differences=[(1, 0), (0, 1), (-1, 0), (0, -1)]):
         #indices_differences = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         neighbors = []
