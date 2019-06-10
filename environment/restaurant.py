@@ -23,11 +23,11 @@ class Restaurant:
                                 Tile(self, row, col, is_restaurant_entrance=True)
                                 if self._should_tile_be_restaurant_entrance(row, col)
                                 else
-                                #Tile(self, row, col)
-                                #if self._should_tile_be_empty(row, col)
+                                Tile(self, row, col)
+                                if self._should_tile_be_empty(row, col)
                                 #Tile(self, row, col, Table(), step_cost=100)
                                 #if self._should_tile_be_table(row, col)
-                                #else
+                                else
                                 Tile(self, row, col, Wall(), step_cost=100)
                                 if self._should_tile_be_wall(row, col)
                                 else
@@ -35,7 +35,6 @@ class Restaurant:
                                 if self._should_tile_be_window(row, col)
                                 else
                                 Tile(self, row, col)
-                                
                                 for col in range(gw)
                             ]
                             for row in range(gl)
@@ -58,18 +57,27 @@ class Restaurant:
 #    def _should_tile_be_table(self, row, col):
 #        return row, col
 
+    def arrange_tables(self, table_positions):
+        print('Table pos:', table_positions)
+        for row in range(self.grid_width):
+            for col in range(self.grid_length):
+                if [row, col] in table_positions:
+                    self.grid[row][col].occupation = Table()
+                    self.grid[row][col].step_cost = 100
+                    print(row, col)
+
     def _assign_cords(self):
         x = np.arange(0, TILE_WIDTH * self.grid_width, TILE_WIDTH)
         y = np.arange(0, TILE_HEIGHT * self.grid_length, TILE_HEIGHT)
         for row in range(self.grid_width):
             for col in range(self.grid_length):
-                #tile = self.grid[row][col]
-                tile = self.grid[col][row]
-                #tile.rect = tile.image.get_rect(topleft=(x[col], y[row]))
-                tile.rect = tile.image.get_rect(topleft=(x[row], y[col]))
+                tile = self.grid[row][col]
+                #tile = self.grid[col][row]
+                tile.rect = tile.image.get_rect(topleft=(x[col], y[row]))
+                #tile.rect = tile.image.get_rect(topleft=(x[row], y[col]))
                 if tile.occupation is not None:
-                    #tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[col], y[row]))
-                    tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[row], y[col]))
+                    tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[col], y[row]))
+                    #tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[row], y[col]))
 
     def _randomize_costs(self):
         without_occupation = list(filter(lambda x: x.occupation is None and x.row_index != 0 and x.col_index != 0,

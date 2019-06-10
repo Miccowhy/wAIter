@@ -48,10 +48,10 @@ class Genetic_fitness:
                 positions.append(self.available_positions[value])
         print(positions)
 
-        for table in positions:
-            self.habitat.grid[table[0]][table[1]].is_occupied = Table()
+       # for table in positions:
+       #     self.habitat.grid[table[0]][table[1]].is_occupied = Table()
 
-        #return positions
+        return positions
 #        return max(self.population, key=self.population.get)
 
     def mutation(self, descentant):

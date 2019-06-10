@@ -26,7 +26,14 @@ pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
 env = Restaurant(GRID_LENGTH, GRID_WIDTH)
-Genetic_fitness(env)
+fit = Genetic_fitness(env)
+
+positions = fit.descendants_iteration()
+env.arrange_tables(positions)
+
+for row in range(env.grid_width):
+    for col in range(env.grid_length):
+        print(row, col, env.grid[row][col].occupation, env.grid[row][col].image)
 
 agent = WaiterAgent(env.grid[0][5])
 customer = Customer(env.grid[8][4], direction=Direction.UP)
