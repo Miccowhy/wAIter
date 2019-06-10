@@ -22,9 +22,9 @@ class Restaurant:
                             [
                                 Tile(self, row, col, is_restaurant_entrance=True)
                                 if self._should_tile_be_restaurant_entrance(row, col)
-                                #else
-                                #Tile(self, row, col)
-                                #if self._should_tile_be_empty(row, col)
+                                else
+                                Tile(self, row, col)
+                                if self._should_tile_be_empty(row, col)
                                 else
                                 Tile(self, row, col, Wall(), step_cost=100)
                                 if self._should_tile_be_wall(row, col)
@@ -42,13 +42,13 @@ class Restaurant:
         return grid
 
     def _should_tile_be_empty(self, row, col):
-        return (row % 2 == 0) or (col % 2 == 0)
+        return (row % 2 == 0 and row != 0 and row != self.grid_width-1 and col != 0 and col != self.grid_length-1) or (col % 2 == 0 and col != 0 and col != self.grid_length-1 and row != 0 and row != self.grid_width-1)
 
     def _should_tile_be_window(self, row, col):
-        return (col == 0 and row % 2 != 0) or (col == self.grid_length and row % 2 != 0)
+        return (col == 0 and row % 2 != 0) or (col == self.grid_length-1 and row % 2 != 0)
 
     def _should_tile_be_wall(self, row, col):
-        return (row == 0 and col != int(self.grid_width / 2)) or row == self.grid_width or (col == 0 and row % 2 == 0) or (col == self.grid_length and row % 2 == 0)
+        return (row == 0 and col != int(self.grid_width / 2)) or row == self.grid_width-1 or (col == 0 and row % 2 == 0) or (col == self.grid_length-1 and row % 2 == 0)
 
     def _should_tile_be_restaurant_entrance(self, row, col):
         return row == 0 and col == int(self.grid_width / 2)

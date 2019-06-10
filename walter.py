@@ -1,6 +1,7 @@
 import pygame
 import random
 from ai.pathfinding import astar_search
+from ai.genetic_furnishing import Genetic_fitness
 from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
 from environment.table import Table
@@ -25,9 +26,11 @@ pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
 env = Restaurant(GRID_LENGTH, GRID_WIDTH)
-agent = WaiterAgent(env.grid[0][0])
+print(Genetic_fitness(env))
+
+agent = WaiterAgent(env.grid[0][5])
 customer = Customer(env.grid[8][4], direction=Direction.UP)
-env.grid[0][0].occupation = agent
+env.grid[0][5].occupation = agent
 env.grid[8][4].occupation = customer
 map_renderer = MapRenderer(env, screen, agent, customer)
 conversation_finished = False
@@ -35,7 +38,7 @@ conversation_finished = False
 # Simple scenario - customer enters the restaurant and then waiter serves him
 customer_goal = {'tile': env.grid[2][5], 'direction': Direction.DOWN}
 cus_node_seq = astar_search(customer, customer_goal)
-agent_goal = {'tile': env.grid[3][4], 'direction': Direction.RIGHT}
+agent_goal = {'tile': env.grid[1][4], 'direction': Direction.RIGHT}
 agent_node_seq = astar_search(agent, agent_goal)
 customer.actions = [node.action for node in cus_node_seq]
 agent.actions = [node.action for node in agent_node_seq]

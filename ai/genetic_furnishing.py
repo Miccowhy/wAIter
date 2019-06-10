@@ -6,24 +6,29 @@ from constants.desirability import WINDOW_VIEW, CLOSE_TABLES, ENTRANCE_BARRICADE
 from constants.dimensions import GRID_WIDTH, GRID_LENGTH
 from constants.genetics import MAX_MUTATIONS, GENE_STABILITY, TABLES_AMOUNT, REPRODUCTIONS, SWAPPING_TRESHOLD
 
-class Fitness:
+class Genetic_fitness:
     def __init__(self, habitat, available_positions = [], population = {}):
         self.available_positions = available_positions
         self.population = population
         self.habitat = habitat
         for col in range(GRID_LENGTH):
             for row in range(GRID_WIDTH):
-                if habitat[col][row].occupation is None:
+                if habitat.grid[col][row].occupation is None:
                     self.available_positions.append([col, row])
-        self.chromosome_length = len(available_positions.append)
+        self.chromosome_length = len(available_positions)
+        self.create_ancestors()
 
     def create_ancestors(self):
         for i in range(2):
             ancestor = []
             random_positions = random.sample(self.available_positions, TABLES_AMOUNT)
+            print(self.available_positions)
+            print(random_positions)
             for item in self.available_positions:
                 ancestor.append(1) if item in random_positions else ancestor.append(0)
-                self.population[ancestor] = self.compute_score(ancestor)
+            print(ancestor)
+            self.population[ancestor] = self.compute_score(ancestor)
+        self.descendants_iteration()
 
     def descendants_iteration(self):
         for turns in range(REPRODUCTIONS):
@@ -38,26 +43,22 @@ class Fitness:
         genes = random.sample(range(descentant), random.randint(MAX_MUTATIONS))
         for gene in genes:
             if random.random() > GENE_STABILITY:
-                descentant[gene] = 1 if descentant[gene] = 0 else 0
+                descentant[gene] = 1 if descentant[gene] == 0 else 0
         return descentant
 
     def compute_score(self, chromosome):
         positions = []
         evolution_grid = [[0 for i in range(GRID_WIDTH)] for i in range(GRID_LENGTH)]
-        for value in self.chromosome_length:
-            #positions.append(self.habitat.grid[value[0]][value[1]]) if chromosome[value]
+        for value in range(self.chromosome_length):
             if chromosome[value]:
-                tile = self.habitat.grid[value[0]][value[1]]
-                evolution_grid[value[0]][value[1]]+= ENTRANCE_BARRICADE if tile.is_restaurant_entrance
+                pos = self.available_positions[value]
+                eval_tile = self.habitat.grid[pos[0]][pos[1]]
+                if eval_tile.is_restaurant_entrance: evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
 
-                for element in tile.neigbor():
+                for element in eval_tile.neigbors():
+                    if eval_tile.is_restaurant_entrance: evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE 
                     if isinstance(element.occupation, Wall):
-                        evolution_grid[value[0]][value[1]] += WINDOW_VIEW if element.occupation.is_window else evolution_grid[value[0]][value[1]] += NEARBY_WALL
+                        evolution_grid[pos[0]][pos[1]] += WINDOW_VIEW if element.occupation.is_window else NEARBY_WALL
 
-                for element in tile.quadrant():
+                for element in eval_tile.quadrant():
                     evolution_grid[element.col_index][element.row_index] += CLOSE_TABLES
-'''        
-        for element in env[col][row].neigbor():
-            if isinstance(element.occupation, Wall):
-            evolution_score += WINDOW_VIEW if element.occupation.is_window else NEARBY_WALL
-'''
