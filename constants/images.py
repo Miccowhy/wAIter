@@ -10,6 +10,9 @@ TABLE = pygame.image.load(os.path.join(graphics_path, 'table.png'))
 ENTRANCE = pygame.image.load(os.path.join(graphics_path, 'entrance.png'))
 FLOOR = pygame.image.load(os.path.join(graphics_path, 'floor.png'))
 BANANA = pygame.image.load(os.path.join(graphics_path, 'banana.png'))
+WINDOW = pygame.image.load(os.path.join(graphics_path, 'window.png'))
+WALL = pygame.image.load(os.path.join(graphics_path, 'brickwall.png'))
+
 
 
 def WAITER_SPRITESHEET():

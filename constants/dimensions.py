@@ -1,6 +1,6 @@
 # Dimensions of grid
 GRID_WIDTH = 11
-GRID_LENGTH = 5
+GRID_LENGTH = 11
 
 # Dimensions of tiles in grid
 TILE_WIDTH = 50
