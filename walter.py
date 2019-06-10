@@ -26,7 +26,7 @@ pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
 env = Restaurant(GRID_LENGTH, GRID_WIDTH)
-print(Genetic_fitness(env))
+Genetic_fitness(env)
 
 agent = WaiterAgent(env.grid[0][5])
 customer = Customer(env.grid[8][4], direction=Direction.UP)
@@ -36,18 +36,12 @@ map_renderer = MapRenderer(env, screen, agent, customer)
 conversation_finished = False
 
 # Simple scenario - customer enters the restaurant and then waiter serves him
-customer_goal = {'tile': env.grid[2][5], 'direction': Direction.DOWN}
-cus_node_seq = astar_search(customer, customer_goal)
-agent_goal = {'tile': env.grid[1][4], 'direction': Direction.RIGHT}
-agent_node_seq = astar_search(agent, agent_goal)
-customer.actions = [node.action for node in cus_node_seq]
-agent.actions = [node.action for node in agent_node_seq]
-'''
-for i in range(GRID_WIDTH):
-    for j in range(GRID_LENGTH):
-        if isinstance(env.grid[i][j].occupation, Table):
-            print(str(i) + ", " + str(j))
-'''
+#customer_goal = {'tile': env.grid[2][5], 'direction': Direction.DOWN}
+#cus_node_seq = astar_search(customer, customer_goal)
+#agent_goal = {'tile': env.grid[1][4], 'direction': Direction.RIGHT}
+#agent_node_seq = astar_search(agent, agent_goal)
+#customer.actions = [node.action for node in cus_node_seq]
+#agent.actions = [node.action for node in agent_node_seq]
 
 done = False
 while not done:

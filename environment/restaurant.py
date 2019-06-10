@@ -23,9 +23,11 @@ class Restaurant:
                                 Tile(self, row, col, is_restaurant_entrance=True)
                                 if self._should_tile_be_restaurant_entrance(row, col)
                                 else
-                                Tile(self, row, col)
-                                if self._should_tile_be_empty(row, col)
-                                else
+                                #Tile(self, row, col)
+                                #if self._should_tile_be_empty(row, col)
+                                #Tile(self, row, col, Table(), step_cost=100)
+                                #if self._should_tile_be_table(row, col)
+                                #else
                                 Tile(self, row, col, Wall(), step_cost=100)
                                 if self._should_tile_be_wall(row, col)
                                 else
@@ -33,7 +35,7 @@ class Restaurant:
                                 if self._should_tile_be_window(row, col)
                                 else
                                 Tile(self, row, col)
-                                #Tile(self, row, col, Table(), step_cost=100)
+                                
                                 for col in range(gw)
                             ]
                             for row in range(gl)
@@ -52,6 +54,9 @@ class Restaurant:
 
     def _should_tile_be_restaurant_entrance(self, row, col):
         return row == 0 and col == int(self.grid_width / 2)
+
+#    def _should_tile_be_table(self, row, col):
+#        return row, col
 
     def _assign_cords(self):
         x = np.arange(0, TILE_WIDTH * self.grid_width, TILE_WIDTH)
@@ -72,3 +77,4 @@ class Restaurant:
         random_tiles = random.choices(without_occupation, k=BANANA_AMOUNT)
         for tile in random_tiles:
             tile.step_cost = BANANA_COST
+
