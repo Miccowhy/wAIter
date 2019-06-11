@@ -7,10 +7,7 @@ class Wall(Drawable):
     def __init__(self):
         super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, loaded_image=WALL)
 
+
 class Window(Drawable):
     def __init__(self):
-        super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, loaded_image=WINDOW) 
-
-#class Window(Wall):
-#    def __init__(self):
-#        super().__init__(loaded_image=WINDOW) 
+        super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, loaded_image=WINDOW)

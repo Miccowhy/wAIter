@@ -4,8 +4,6 @@ from ai.pathfinding import astar_search
 from ai.genetic_furnishing import Genetic_fitness
 from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
-from environment.table import Table
-from environment.wall import Wall, Window
 from environment.mapper import Mapper
 from entities.waiter_agent import WaiterAgent
 from entities.customer import Customer
@@ -15,7 +13,6 @@ from constants.movement import Direction
 from constants.datasets import PIZZAS_DF
 from constants.conversations import PIZZA_CONVERSATION
 
-from itertools import chain
 
 pygame.init()
 

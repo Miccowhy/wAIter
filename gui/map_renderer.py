@@ -3,7 +3,7 @@ import lib.ptext as ptext
 from constants.images import BANANA
 from constants.bananas import BANANA_COST
 from constants.colors import TRANSPARENT_BLUE
-from constants.dimensions import TILE_WIDTH, TILE_HEIGHT, WINDOW_SIZE
+from constants.dimensions import WINDOW_SIZE
 
 
 class MapRenderer:
@@ -24,13 +24,9 @@ class MapRenderer:
         self._display_textbox()
 
     def _draw_grid(self):
-        #print('inside renderer')
         for row in range(self.environment.grid_width):
             for col in range(self.environment.grid_length):
                 tile = self.environment.grid[row][col]
-                #print(row, col)
-                #print(tile.occupation)
-                #tile = self.environment.grid[col][row]
                 self._draw(tile)
                 if tile.occupation is not None:
                     self._draw(tile.occupation)
@@ -46,7 +42,8 @@ class MapRenderer:
     def _display_textbox(self):
         self._check_textbox_duration()
         if self.current_text is not None:
-            ptext.draw(self.current_text, (0, WINDOW_SIZE[1] - 150), sysfontname='Comic Sans MS', fontsize=24)
+            ptext.draw(self.current_text, (0, WINDOW_SIZE[1] - 150),
+                       sysfontname='Comic Sans MS', fontsize=24)
             textbox = pygame.Surface((WINDOW_SIZE[0], WINDOW_SIZE[1] - 100), pygame.SRCALPHA)
             textbox.fill(TRANSPARENT_BLUE)
             self.screen.blit(textbox, (0, WINDOW_SIZE[1] - 150))
