@@ -28,41 +28,36 @@ pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
 mapper = Mapper()
-#print(mapper.arrangement_return()[3])
 fit = Genetic_fitness(mapper)
-#print("Fit:\n" + str(fit))
 positions = fit.get_position()
-print("Positions\n" + str(positions))
 mapper.update_tables(positions)
-#env.arrange_tables(positions)
 env = Restaurant(GRID_LENGTH, GRID_WIDTH)
-env.push_grid_positions(mapper.return_arrangement())
+arr = mapper.return_arrangement()
+env.push_grid_positions(arr)
+entry = arr[2]
 
-'''
-for row in range(env.grid_width):
-    for col in range(env.grid_length):
-        #print(row, col, env.grid[row][col].occupation, env.grid[row][col].image)
-        if isinstance(env.grid[row][col].occupation, Wall): print("W", end="")
-        elif isinstance(env.grid[row][col].occupation, Window): print("O", end="")
-        elif isinstance(env.grid[row][col].occupation, Table): print("T", end="")
-        else: print(" ", end="")
-    print()
-'''
-
-agent = WaiterAgent(env.grid[0][5])
-customer = Customer(env.grid[8][4], direction=Direction.UP)
-env.grid[0][5].occupation = agent
-env.grid[8][4].occupation = customer
+agent = WaiterAgent(env.grid[entry[0][0], entry[0][1]])
+customer = Customer(env.grid[entry[1][0], entry[1][1]], direction=Direction.UP)
+env.grid[entry[0][0], entry[0][1]].occupation = agent
+env.grid[entry[1][0], entry[1][1]].occupation = customer
 map_renderer = MapRenderer(env, screen, agent, customer)
 conversation_finished = False
 
 # Simple scenario - customer enters the restaurant and then waiter serves him
-#customer_goal = {'tile': env.grid[2][5], 'direction': Direction.DOWN}
-#cus_node_seq = astar_search(customer, customer_goal)
-#agent_goal = {'tile': env.grid[1][4], 'direction': Direction.RIGHT}
-#agent_node_seq = astar_search(agent, agent_goal)
-#customer.actions = [node.action for node in cus_node_seq]
-#agent.actions = [node.action for node in agent_node_seq]
+cg, ag = mapper.seat_customer()
+print(str(cg) + ", " + str(ag))
+customer_goal = {'tile': env.grid[cg[0]][cg[1]], 'direction': Direction.DOWN}
+cus_node_seq = astar_search(customer, customer_goal)
+try:
+    customer.actions = [node.action for node in cus_node_seq]
+except TypeError:
+    pass
+agent_goal = {'tile': env.grid[ag[0]][ag[1]], 'direction': Direction.RIGHT}
+agent_node_seq = astar_search(agent, agent_goal)
+try:
+    agent.actions = [node.action for node in agent_node_seq]
+except TypeError:
+    pass
 
 done = False
 while not done:
