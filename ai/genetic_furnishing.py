@@ -11,7 +11,7 @@ from constants.genetics import MAX_MUTATIONS, GENE_STABILITY, TABLES_AMOUNT, REP
 
 class Genetic_fitness:
     def __init__(self, env, population = {}):
-        self.available_positions = env.arrangement_return()[3]
+        self.available_positions = env.return_arrangement()[3]
         self.population = population
         self.habitat = env.get_grid()
         self.chromosome_length = len(self.available_positions)

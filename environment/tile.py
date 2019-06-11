@@ -18,8 +18,8 @@ class Tile(Drawable):
         self.is_restaurant_entrance = is_restaurant_entrance
         self.step_cost = step_cost
 
-    def neighbors(self, indices_differences=[(1, 0), (0, 1), (-1, 0), (0, -1)]):
-        #indices_differences = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    def neighbors(self):
+        indices_differences = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         neighbors = []
         for diff in indices_differences:
             row = max(self.row_index + diff[0], 0)
@@ -30,14 +30,8 @@ class Tile(Drawable):
                 continue
         return neighbors
 
-    def quadrant(self):
-        return self.neighbors(indices_differences=[(1, 0), (0, 1), (-1, 0), (0, -1), (-1, -1), (-1, 1), (1, -1), (1, 1)])
-
     def unoccupied_neighbors(self):
         return [neighbor for neighbor in self.neighbors() if neighbor.occupation is None]
-
-    def unoccupied_quadrant(self):
-        return [neighbor for neighbor in self.quadrant() if neighbor.occupation is None]
 
     def unoccupied_neighbors_by_directions(self):
         return [{'tile': neighbor, 'direction': Direction.obtain_direction(self, neighbor)}

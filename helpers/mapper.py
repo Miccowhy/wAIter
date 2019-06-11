@@ -22,24 +22,16 @@ class Mapper:
                     if self.grid[i][j] == "E": self.entrances.append([i, j])
                     if self.grid[i][j] == " ": self.empty.append([i, j])
     
-    def arrangement_return(self):
+    def return_arrangement(self):
         return self.walls, self.windows, self.entrances, self.empty, self.tables
 
     def get_grid(self):
         return self.grid
 
     def update_tables(self, tables):
-        print("Raw tables:")
-        print(tables)
         self.tables = tables
-        print("Old empty:")
-        print(self.empty)
-        print("Tables:")
-        print(self.tables)
-        print("New empty:")
         for element in self.tables:
             self.empty.remove(element)
-        print(self.empty)
 
     def test(self, positions):
         walls, windows, entrances, empty, tables = positions

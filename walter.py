@@ -27,7 +27,6 @@ clock = pygame.time.Clock()
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
-env = Restaurant(GRID_LENGTH, GRID_WIDTH)
 mapper = Mapper()
 #print(mapper.arrangement_return()[3])
 fit = Genetic_fitness(mapper)
@@ -36,7 +35,10 @@ positions = fit.get_position()
 print("Positions\n" + str(positions))
 mapper.update_tables(positions)
 #env.arrange_tables(positions)
+env = Restaurant(GRID_LENGTH, GRID_WIDTH)
+env.push_grid_positions(mapper.return_arrangement())
 
+'''
 for row in range(env.grid_width):
     for col in range(env.grid_length):
         #print(row, col, env.grid[row][col].occupation, env.grid[row][col].image)
@@ -45,6 +47,7 @@ for row in range(env.grid_width):
         elif isinstance(env.grid[row][col].occupation, Table): print("T", end="")
         else: print(" ", end="")
     print()
+'''
 
 agent = WaiterAgent(env.grid[0][5])
 customer = Customer(env.grid[8][4], direction=Direction.UP)
