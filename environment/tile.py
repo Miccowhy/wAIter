@@ -6,8 +6,8 @@ from constants.movement import Direction
 
 class Tile(Drawable):
     def __init__(self, environment, row_index, col_index, occupation=None,
-                 is_kitchen_entrance=False, color=None, loaded_image=FLOOR, step_cost=1):
-        if is_kitchen_entrance:
+                 is_restaurant_entrance=False, color=None, loaded_image=FLOOR, step_cost=1):
+        if is_restaurant_entrance:
             loaded_image = ENTRANCE
         super().__init__(width=TILE_WIDTH, height=TILE_HEIGHT, color=color,
                          loaded_image=loaded_image)
@@ -15,7 +15,7 @@ class Tile(Drawable):
         self.row_index = row_index
         self.col_index = col_index
         self.occupation = occupation
-        self.is_kitchen_entrance = is_kitchen_entrance
+        self.is_restaurant_entrance = is_restaurant_entrance
         self.step_cost = step_cost
 
     def neighbors(self):

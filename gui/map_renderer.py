@@ -3,6 +3,7 @@ import lib.ptext as ptext
 from constants.images import BANANA
 from constants.bananas import BANANA_COST
 from constants.colors import TRANSPARENT_BLUE
+from constants.dimensions import TILE_WIDTH, TILE_HEIGHT
 
 
 class MapRenderer:
@@ -23,9 +24,13 @@ class MapRenderer:
         self._display_textbox()
 
     def _draw_grid(self):
+        #print('inside renderer')
         for row in range(self.environment.grid_width):
             for col in range(self.environment.grid_length):
                 tile = self.environment.grid[row][col]
+                #print(row, col)
+                #print(tile.occupation)
+                #tile = self.environment.grid[col][row]
                 self._draw(tile)
                 if tile.occupation is not None:
                     self._draw(tile.occupation)
