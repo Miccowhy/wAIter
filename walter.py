@@ -6,7 +6,7 @@ from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
 from environment.table import Table
 from environment.wall import Wall, Window
-from helpers.mapper import Mapper
+from environment.mapper import Mapper
 from entities.waiter_agent import WaiterAgent
 from entities.customer import Customer
 from constants.colors import BLACK
@@ -25,7 +25,7 @@ pygame.display.set_caption("WalterAI")
 clock = pygame.time.Clock()
 
 pygame.mixer.music.play(-1)
-pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.set_volume(0.8)
 
 mapper = Mapper()
 fit = Genetic_fitness(mapper)
@@ -45,18 +45,13 @@ conversation_finished = False
 
 # Simple scenario - customer enters the restaurant and then waiter serves him
 cg, ag = mapper.seat_customer()
-customer_goal = {'tile': env.grid[cg[0]][cg[1]], 'direction': Direction.DOWN}
+customer_goal = {'tile': env.grid[cg[0]][cg[1]], 'direction': Direction.UP}
 cus_node_seq = astar_search(customer, customer_goal)
-try:
-    customer.actions = [node.action for node in cus_node_seq]
-except TypeError:
-    pass
-agent_goal = {'tile': env.grid[ag[0]][ag[1]], 'direction': Direction.RIGHT}
+customer.actions = [node.action for node in cus_node_seq]
+agent_goal = {'tile': env.grid[ag[0]][ag[1]], 'direction': Direction.DOWN}
 agent_node_seq = astar_search(agent, agent_goal)
-try:
-    agent.actions = [node.action for node in agent_node_seq]
-except TypeError:
-    pass
+agent.actions = [node.action for node in agent_node_seq]
+
 
 done = False
 while not done:

@@ -4,7 +4,7 @@ from collections import Counter
 from environment.restaurant import Restaurant
 from environment.table import Table
 from environment.wall import Wall, Window
-from helpers.neighborhood import Neighborhood
+from environment.neighborhood import Neighborhood
 from constants.desirability import WINDOW_VIEW, CLOSE_TABLES, ENTRANCE_BARRICADE, NEARBY_WALL
 from constants.dimensions import GRID_WIDTH, GRID_LENGTH
 from constants.genetics import MAX_MUTATIONS, GENE_STABILITY, TABLES_AMOUNT, REPRODUCTIONS, SWAPPING_TRESHOLD

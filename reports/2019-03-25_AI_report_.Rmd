@@ -1,0 +1,47 @@
+---
+title: "wAIter - report I"
+#author:
+#- "Mikolaj Aleksandrzak"
+#- "Kamil Beker"
+#- "Szymon Kuleczka"
+#- "Michal Dyczkowski"
+date: "March 25, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Technology
+wAIter is written in pygame 1.9.4.
+
+Arrays and computations are provided by numpy in version 1.16.2.
+
+## Structure and functionalities
+
+Project divides into four categories: *constants*, *entities*, *environment* and *gui*, as well as ***run.py***, which, as a name suggest, executes a program.
+
+### Constants
+
+Constants, as the name suggest, contains constant values, like colors and dimensions of tiles. For the purpose of this iteration, grid dimensions are also constant.
+
+### Entities
+
+Next, directory entities contain modules ***entities.py*** and ***waiter_agent.py***. They define class **Entity** and it's subclass **WaiterAgent** respectively. Entity contains general function *move()*, defining action of movement. **WaiterAgent**'s *choose_route()* method defines movement options in a list *possible_moves* - that is, all neighboring (including diagonals) non-occupied tiles, not being an entrance. Again, for the purpose of this iteration, route is chosen randomly.
+
+### Environment
+
+In the environment directory we define environment. **Restaurant** class of module ***restaurant.py*** defines function *\_generate_grid()*, which is responsible for creating an arrangement of tables. It uses for that function *\_should_tile_be_empty()*, which, in this iteration, defines that every tile with at least one even coordinate should be empty.
+
+Class **Table** initializes with two variables: *customers* and *is_dirty*, which names are rather descriptive. When initialized, table is empty and clean (not dirty).
+
+Class **Tile** defines array tiling, which is later represented on a grid. It defines function *neighbors()*, which in turn returns neighbors of a given tile.
+
+### Grid
+
+Directory grid contains ***grid.py***, which is responsible for drawing a 2D environment using *draw_grid()* function, using informations given by components from previous subsections and **pygame** module.
+
+### Run.py
+
+This is the file resonsible for program exectution. It sets display, clock, framerate and loop for the **pygame**.
