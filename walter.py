@@ -5,6 +5,8 @@ from ai.genetic_furnishing import Genetic_fitness
 from gui.map_renderer import MapRenderer
 from environment.restaurant import Restaurant
 from environment.table import Table
+from environment.wall import Wall, Window
+from helpers.mapper import Mapper
 from entities.waiter_agent import WaiterAgent
 from entities.customer import Customer
 from constants.colors import BLACK
@@ -26,14 +28,23 @@ pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
 env = Restaurant(GRID_LENGTH, GRID_WIDTH)
-fit = Genetic_fitness(env)
-
-positions = fit.descendants_iteration()
-env.arrange_tables(positions)
+mapper = Mapper()
+#print(mapper.arrangement_return()[3])
+fit = Genetic_fitness(mapper)
+#print("Fit:\n" + str(fit))
+positions = fit.get_position()
+print("Positions\n" + str(positions))
+mapper.update_tables(positions)
+#env.arrange_tables(positions)
 
 for row in range(env.grid_width):
     for col in range(env.grid_length):
-        print(row, col, env.grid[row][col].occupation, env.grid[row][col].image)
+        #print(row, col, env.grid[row][col].occupation, env.grid[row][col].image)
+        if isinstance(env.grid[row][col].occupation, Wall): print("W", end="")
+        elif isinstance(env.grid[row][col].occupation, Window): print("O", end="")
+        elif isinstance(env.grid[row][col].occupation, Table): print("T", end="")
+        else: print(" ", end="")
+    print()
 
 agent = WaiterAgent(env.grid[0][5])
 customer = Customer(env.grid[8][4], direction=Direction.UP)

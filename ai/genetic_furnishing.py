@@ -4,27 +4,24 @@ from collections import Counter
 from environment.restaurant import Restaurant
 from environment.table import Table
 from environment.wall import Wall, Window
-#from helpers.neighborhood import Neighborhood
+from helpers.neighborhood import Neighborhood
 from constants.desirability import WINDOW_VIEW, CLOSE_TABLES, ENTRANCE_BARRICADE, NEARBY_WALL
 from constants.dimensions import GRID_WIDTH, GRID_LENGTH
 from constants.genetics import MAX_MUTATIONS, GENE_STABILITY, TABLES_AMOUNT, REPRODUCTIONS, SWAPPING_TRESHOLD
 
 class Genetic_fitness:
-    def __init__(self, habitat, available_positions = [], population = {}):
-        self.available_positions = available_positions
+    def __init__(self, env, population = {}):
+        self.available_positions = env.arrangement_return()[3]
         self.population = population
-        self.habitat = habitat
-        for col in range(GRID_LENGTH):
-            for row in range(GRID_WIDTH):
-                if habitat.grid[col][row].occupation is None:
-                    self.available_positions.append([col, row])
-        self.chromosome_length = len(available_positions)
+        self.habitat = env.get_grid()
+        self.chromosome_length = len(self.available_positions)
+        #print("Available: \n" + str(self.available_positions))
+        self.final_positions = None
         self.create_ancestors()
 
     def create_ancestors(self):
         for i in range(2):
             ancestor = []
-            print(self.available_positions)
             random_positions = random.sample(self.available_positions, TABLES_AMOUNT)
             #print(self.available_positions)
             #print(random_positions)
@@ -46,12 +43,15 @@ class Genetic_fitness:
         for value in range(self.chromosome_length):
             if max(self.population, key=self.population.get)[value]:
                 positions.append(self.available_positions[value])
-        print(positions)
+        self.final_positions = positions
+        #print("Positions")
+        #print(positions)
+        #return positions
+        
 
        # for table in positions:
        #     self.habitat.grid[table[0]][table[1]].is_occupied = Table()
 
-        return positions
 #        return max(self.population, key=self.population.get)
 
     def mutation(self, descentant):
@@ -71,18 +71,24 @@ class Genetic_fitness:
             if chromosome[value]:
                 pos = self.available_positions[value]
                 #print(pos)
-                eval_tile = self.habitat.grid[pos[0]][pos[1]]
+                eval_tile = self.habitat[pos[0]][pos[1]]
                 #print(eval_tile)
-                if eval_tile.is_restaurant_entrance: evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
+                #if eval_tile.is_restaurant_entrance: evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
+                if eval_tile == "E": evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
                 #print(evolution_grid)
                 #for element in Neighborhood.neighbors(habitat, pos[0], pos[1]):
-                for element in eval_tile.neighbors():
-                    if eval_tile.is_restaurant_entrance: evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE 
-                    if isinstance(element.occupation, Wall): evolution_grid[pos[0]][pos[1]] += NEARBY_WALL
-                    if isinstance(element.occupation, Window): evolution_grid[pos[0]][pos[1]] += WINDOW_VIEW
+                for val in Neighborhood().neighbors(pos[0], pos[1]):
+                    if self.habitat[val[0]][val[1]] == "W": evolution_grid[pos[0]][pos[1]] += NEARBY_WALL
+                    if self.habitat[val[0]][val[1]] == "O": evolution_grid[pos[0]][pos[1]] += WINDOW_VIEW
+                    #if isinstance(element.occupation, Wall): evolution_grid[pos[0]][pos[1]] += NEARBY_WALL
+                    #if isinstance(element.occupation, Window): evolution_grid[pos[0]][pos[1]] += WINDOW_VIEW
                 #print(evolution_grid)
-                for element in eval_tile.quadrant():
-                    evolution_grid[element.col_index][element.row_index] += CLOSE_TABLES
+                for element in Neighborhood().quadrant(pos[0], pos[1]):
+                    if element == "E": evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
+                    evolution_grid[element[0]][element[1]] += CLOSE_TABLES
                 #print(evolution_grid)
                 overall_score += evolution_grid[pos[0]][pos[1]]
         return overall_score
+
+    def get_position(self):
+        return self.final_positions

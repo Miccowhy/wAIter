@@ -23,10 +23,10 @@ class Restaurant:
                                 Tile(self, row, col, is_restaurant_entrance=True)
                                 if self._should_tile_be_restaurant_entrance(row, col)
                                 else
-                                Tile(self, row, col)
-                                if self._should_tile_be_empty(row, col)
-                                #Tile(self, row, col, Table(), step_cost=100)
-                                #if self._should_tile_be_table(row, col)
+                                #Tile(self, row, col)
+                                #if self._should_tile_be_empty(row, col)
+                                Tile(self, row, col, Table(), step_cost=100)
+                                if self._should_tile_be_table(row, col)
                                 else
                                 Tile(self, row, col, Wall(), step_cost=100)
                                 if self._should_tile_be_wall(row, col)
@@ -42,8 +42,8 @@ class Restaurant:
                         dtype=object)
         return grid
 
-    def _should_tile_be_empty(self, row, col):
-        return (row % 2 == 0 and row != 0 and row != self.grid_width-1 and col != 0 and col != self.grid_length-1) or (col % 2 == 0 and col != 0 and col != self.grid_length-1 and row != 0 and row != self.grid_width-1)
+    #def _should_tile_be_empty(self, row, col):
+    #    return (row % 2 == 0 and row != 0 and row != self.grid_width-1 and col != 0 and col != self.grid_length-1) or (col % 2 == 0 and col != 0 and col != self.grid_length-1 and row != 0 and row != self.grid_width-1)
 
     def _should_tile_be_window(self, row, col):
         return (col == 0 and row % 2 != 0) or (col == self.grid_length-1 and row % 2 != 0)
@@ -54,17 +54,17 @@ class Restaurant:
     def _should_tile_be_restaurant_entrance(self, row, col):
         return row == 0 and col == int(self.grid_width / 2)
 
-#    def _should_tile_be_table(self, row, col):
-#        return row, col
+    def _should_tile_be_table(self, row, col):
+        return row == 5 and col == 5
 
-    def arrange_tables(self, table_positions):
-        print('Table pos:', table_positions)
-        for row in range(self.grid_width):
-            for col in range(self.grid_length):
-                if [row, col] in table_positions:
-                    self.grid[row][col].occupation = Table()
-                    self.grid[row][col].step_cost = 100
-                    print(row, col)
+#    def arrange_tables(self, table_positions):
+#        print('Table pos:', table_positions)
+#        for row in range(self.grid_width):
+#            for col in range(self.grid_length):
+                #if [row, col] in table_positions:
+                    #self.grid[row][col].occupation = Table()
+                    #self.grid[row][col].step_cost = 100
+                    #print(row, col)
 
     def _assign_cords(self):
         x = np.arange(0, TILE_WIDTH * self.grid_width, TILE_WIDTH)
