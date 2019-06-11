@@ -57,6 +57,7 @@ target/
 
 # Text editors:
 .vscode/
+.vscode-janus-debug
 .idea/
 
 
@@ -64,4 +65,5 @@ target/
 out/*
 
 # Other
+XDG_CACHE_HOME
 resources/in_progress/
