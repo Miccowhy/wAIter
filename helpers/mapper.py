@@ -36,7 +36,6 @@ class Mapper:
     def seat_customer(self):
         for table in self.tables:
             free_tiles = Neighborhood().neighbors(table[0], table[1], indices_differences=[(-1, 0), (0, -1)])
-            print(tuple(free_tiles[0]), tuple(free_tiles[1]))
             if len(free_tiles) == 2 and set((tuple(free_tiles[0]), tuple(free_tiles[1]))).issubset(self.empty): return free_tiles
     
     def test(self, positions):

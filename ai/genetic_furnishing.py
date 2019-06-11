@@ -39,6 +39,9 @@ class Genetic_fitness:
             if max(self.population, key=self.population.get)[value]:
                 positions.append(self.available_positions[value])
         self.final_positions = positions
+        print("Scores of top 100 of population")
+        for subject in range(100):
+            print(Counter(self.population).most_common(100)[subject][1], end=" ")
 
     def mutation(self, descentant):
         genes = random.sample(range(len(descentant)), random.randrange(MAX_MUTATIONS))

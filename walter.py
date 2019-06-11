@@ -45,7 +45,6 @@ conversation_finished = False
 
 # Simple scenario - customer enters the restaurant and then waiter serves him
 cg, ag = mapper.seat_customer()
-print(str(cg) + ", " + str(ag))
 customer_goal = {'tile': env.grid[cg[0]][cg[1]], 'direction': Direction.DOWN}
 cus_node_seq = astar_search(customer, customer_goal)
 try:
