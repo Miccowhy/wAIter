@@ -13,7 +13,8 @@ class Restaurant:
         self.grid_width = grid_width
 
     def push_grid_positions(self, positions):
-        self._should_be_wall, self._should_be_window, self._should_be_restaurant_entrance, self._should_be_empty, self._should_be_table = positions
+        self._should_be_wall, self._should_be_window, self._should_be_restaurant_entrance, \
+            self._should_be_empty, self._should_be_table = positions
         self.grid = self._generate_grid()
         self._assign_cords()
         self._randomize_costs()
@@ -54,8 +55,10 @@ class Restaurant:
                     tile.occupation.rect = tile.occupation.image.get_rect(topleft=(x[col], y[row]))
 
     def _randomize_costs(self):
-        without_occupation = list(filter(lambda x: x.occupation is None and x.row_index != 0 and x.col_index != 0,
-                                  self.grid.flatten()))
+        without_occupation = [tile for tile in self.grid.flatten()
+                              if tile.occupation is None
+                              and tile.row_index != 0
+                              and tile.col_index != 0]
         random_tiles = random.choices(without_occupation, k=BANANA_AMOUNT)
         for tile in random_tiles:
             tile.step_cost = BANANA_COST
