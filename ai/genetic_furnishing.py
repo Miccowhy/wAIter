@@ -55,13 +55,12 @@ class Genetic_fitness:
             if chromosome[value]:
                 pos = self.available_positions[value]
                 eval_tile = self.habitat[pos[0]][pos[1]]
-                #if eval_tile == "E": evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
                 for val in Neighborhood().neighbors(pos[0], pos[1]):
                     if self.habitat[val[0]][val[1]] == "W": evolution_grid[pos[0]][pos[1]] += NEARBY_WALL
                     if self.habitat[val[0]][val[1]] == "O": evolution_grid[pos[0]][pos[1]] += WINDOW_VIEW
-                for element in Neighborhood().quadrant(pos[0], pos[1]):
-                    if element == "E": evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
-                    evolution_grid[element[0]][element[1]] += CLOSE_TABLES
+                for val in Neighborhood().quadrant(pos[0], pos[1]):
+                    if self.habitat[val[0]][val[1]] == "E": evolution_grid[pos[0]][pos[1]]+= ENTRANCE_BARRICADE
+                    evolution_grid[val[0]][val[1]] += CLOSE_TABLES
                 overall_score += evolution_grid[pos[0]][pos[1]]
         return overall_score
 
