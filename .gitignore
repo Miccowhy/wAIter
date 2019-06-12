@@ -60,10 +60,6 @@ target/
 .vscode-janus-debug
 .idea/
 
-
-# Output files, such as decision tree visualization
-out/*
-
 # Other
 XDG_CACHE_HOME
 resources/in_progress/
